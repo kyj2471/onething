@@ -5,6 +5,14 @@ import { createClient } from "@/lib/supabase/server";
 import { SignOutButton } from "@/components/layout/SignOutButton";
 import { DeleteAccountButton } from "@/components/layout/DeleteAccountButton";
 import {
+  Button,
+  Card,
+  Input,
+  Row,
+  Section,
+  Select,
+} from "@/components/ui";
+import {
   updateReminderTime,
   updateTheme,
   updateLanguage,
@@ -39,123 +47,127 @@ export default async function SettingsPage({
     : null;
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-7">
       <header>
-        <h1 className="font-display text-2xl italic text-accent">{t("title")}</h1>
+        <h1 className="font-display text-display italic text-fg">{t("title")}</h1>
       </header>
 
       <Section title={t("account")}>
-        <Row label={t("displayName")}>
-          <span className="font-body text-sm text-accent">
-            {profile?.display_name ?? "-"}
-          </span>
-        </Row>
-        <Row label={t("email")}>
-          <span className="font-mono text-sm text-muted">
-            {profile?.email ?? user.email}
-          </span>
-        </Row>
+        <Card padded={false} className="divide-y divide-border">
+          <div className="px-4 py-2">
+            <Row label={t("displayName")}>
+              <span className="text-body text-fg">
+                {profile?.display_name ?? "-"}
+              </span>
+            </Row>
+          </div>
+          <div className="px-4 py-2">
+            <Row label={t("email")}>
+              <span className="text-mono text-fg-muted">
+                {profile?.email ?? user.email}
+              </span>
+            </Row>
+          </div>
+        </Card>
       </Section>
 
       <Section title={t("notifications")}>
-        <form action={updateReminderTime} className="flex items-center gap-3">
-          <label className="flex-1 font-body text-sm text-accent">
-            {t("reminderTime")}
-          </label>
-          <input
-            type="time"
-            name="reminder_time"
-            defaultValue={reminder}
-            className="rounded-md border border-border bg-card px-3 py-1.5 font-mono text-sm"
-          />
-          <button
-            type="submit"
-            className="rounded-md bg-accent px-3 py-1.5 font-body text-xs text-white"
+        <Card padded={false}>
+          <form
+            action={updateReminderTime}
+            className="flex items-center gap-3 px-4 py-3"
           >
-            {t("save")}
-          </button>
-        </form>
+            <label className="flex-1 text-body text-fg">
+              {t("reminderTime")}
+            </label>
+            <Input
+              type="time"
+              name="reminder_time"
+              defaultValue={reminder}
+              className="h-9 w-auto font-mono"
+            />
+            <Button type="submit" size="sm">
+              {t("save")}
+            </Button>
+          </form>
+        </Card>
       </Section>
 
       <Section title={t("app")}>
-        <form action={updateTheme} className="flex items-center gap-3">
-          <label className="flex-1 font-body text-sm text-accent">
-            {t("theme")}
-          </label>
-          <select
-            name="theme"
-            defaultValue={theme}
-            className="rounded-md border border-border bg-card px-3 py-1.5 font-body text-sm"
-          >
-            <option value="system">{t("themeSystem")}</option>
-            <option value="light">{t("themeLight")}</option>
-            <option value="dark">{t("themeDark")}</option>
-          </select>
-          <button
-            type="submit"
-            className="rounded-md bg-accent px-3 py-1.5 font-body text-xs text-white"
-          >
-            {t("save")}
-          </button>
-        </form>
-        <form action={updateLanguage} className="flex items-center gap-3">
-          <input type="hidden" name="current" value={params.locale} />
-          <label className="flex-1 font-body text-sm text-accent">
-            {t("language")}
-          </label>
-          <select
-            name="locale"
-            defaultValue={locale}
-            className="rounded-md border border-border bg-card px-3 py-1.5 font-body text-sm"
-          >
-            <option value="en">English</option>
-            <option value="ko">한국어</option>
-          </select>
-          <button
-            type="submit"
-            className="rounded-md bg-accent px-3 py-1.5 font-body text-xs text-white"
-          >
-            {t("save")}
-          </button>
-        </form>
+        <Card padded={false} className="divide-y divide-border">
+          <form action={updateTheme} className="flex items-center gap-3 px-4 py-3">
+            <label className="flex-1 text-body text-fg">{t("theme")}</label>
+            <Select
+              name="theme"
+              defaultValue={theme}
+              className="h-9 w-auto"
+            >
+              <option value="system">{t("themeSystem")}</option>
+              <option value="light">{t("themeLight")}</option>
+              <option value="dark">{t("themeDark")}</option>
+            </Select>
+            <Button type="submit" size="sm">
+              {t("save")}
+            </Button>
+          </form>
+          <form action={updateLanguage} className="flex items-center gap-3 px-4 py-3">
+            <input type="hidden" name="current" value={params.locale} />
+            <label className="flex-1 text-body text-fg">{t("language")}</label>
+            <Select
+              name="locale"
+              defaultValue={locale}
+              className="h-9 w-auto"
+            >
+              <option value="en">English</option>
+              <option value="ko">한국어</option>
+            </Select>
+            <Button type="submit" size="sm">
+              {t("save")}
+            </Button>
+          </form>
+        </Card>
       </Section>
 
       <Section title={t("subscription")}>
-        <Row label={t("plan")}>
-          <span className="font-mono text-sm text-accent">{status}</span>
-        </Row>
-        {trialEnd ? (
-          <Row label={t("trialEnds")}>
-            <span className="font-mono text-sm text-muted">{trialEnd}</span>
-          </Row>
-        ) : null}
-        <div className="flex items-center justify-between gap-3">
-          <span className="font-body text-sm text-accent">
-            {t("manageSubscription")}
-          </span>
-          <span
-            aria-disabled
-            className="rounded-md border border-border px-3 py-1.5 font-mono text-[11px] uppercase tracking-wider text-muted"
-          >
-            {t("comingSoon")}
-          </span>
-        </div>
+        <Card padded={false} className="divide-y divide-border">
+          <div className="px-4 py-2">
+            <Row label={t("plan")}>
+              <span className="text-mono text-fg">{status}</span>
+            </Row>
+          </div>
+          {trialEnd ? (
+            <div className="px-4 py-2">
+              <Row label={t("trialEnds")}>
+                <span className="text-mono text-fg-muted">{trialEnd}</span>
+              </Row>
+            </div>
+          ) : null}
+          <div className="px-4 py-3">
+            <Row label={t("manageSubscription")}>
+              <span
+                aria-disabled
+                className="rounded-full border border-border px-2.5 py-0.5 text-caption text-fg-subtle"
+              >
+                {t("comingSoon")}
+              </span>
+            </Row>
+          </div>
+        </Card>
       </Section>
 
       <Section title={t("legal")}>
-        <LinkRow href={`/${params.locale}/privacy`}>{t("privacy")}</LinkRow>
-        <LinkRow href={`/${params.locale}/terms`}>{t("terms")}</LinkRow>
-        <LinkRow href={`/${params.locale}/refund`}>{t("refund")}</LinkRow>
-        <LinkRow href={`/${params.locale}/help`}>{t("help")}</LinkRow>
+        <Card padded={false} className="divide-y divide-border">
+          <LinkRow href={`/${params.locale}/privacy`}>{t("privacy")}</LinkRow>
+          <LinkRow href={`/${params.locale}/terms`}>{t("terms")}</LinkRow>
+          <LinkRow href={`/${params.locale}/refund`}>{t("refund")}</LinkRow>
+          <LinkRow href={`/${params.locale}/help`}>{t("help")}</LinkRow>
+        </Card>
       </Section>
 
       <SignOutButton locale={params.locale} />
 
-      <section className="flex flex-col gap-3">
-        <h2 className="font-mono text-[11px] uppercase tracking-wider text-danger">
-          {t("dangerZone")}
-        </h2>
-        <div className="rounded-xl border border-danger bg-danger-bg p-4">
+      <Section title={t("dangerZone")}>
+        <Card className="border-danger/40 bg-danger-bg/40">
           <DeleteAccountButton
             locale={params.locale}
             labels={{
@@ -167,52 +179,12 @@ export default async function SettingsPage({
               cancel: t("deleteCancel"),
             }}
           />
-        </div>
-      </section>
+        </Card>
+      </Section>
 
-      <p className="text-center font-mono text-[11px] text-muted">
+      <p className="text-center text-caption text-fg-subtle normal-case tracking-normal">
         OneThing · v0.1.0
       </p>
-    </div>
-  );
-}
-
-function Section({
-  title,
-  children,
-}: {
-  title: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <section className="flex flex-col gap-3">
-      <h2 className="font-mono text-[11px] uppercase tracking-wider text-muted">
-        {title}
-      </h2>
-      <div className="flex flex-col divide-y divide-border rounded-xl border border-border bg-card">
-        {(Array.isArray(children) ? children : [children])
-          .filter((c) => c !== null && c !== false && c !== undefined)
-          .map((child, i) => (
-            <div key={i} className="px-4 py-3">
-              {child}
-            </div>
-          ))}
-      </div>
-    </section>
-  );
-}
-
-function Row({
-  label,
-  children,
-}: {
-  label: string;
-  children: React.ReactNode;
-}) {
-  return (
-    <div className="flex items-center justify-between gap-3">
-      <span className="font-body text-sm text-accent">{label}</span>
-      {children}
     </div>
   );
 }
@@ -227,10 +199,10 @@ function LinkRow({
   return (
     <Link
       href={href}
-      className="flex items-center justify-between font-body text-sm text-accent"
+      className="flex items-center justify-between px-4 py-3 text-body text-fg transition hover:bg-accent-subtle"
     >
       <span>{children}</span>
-      <span aria-hidden className="text-muted">›</span>
+      <span aria-hidden className="text-fg-subtle">›</span>
     </Link>
   );
 }

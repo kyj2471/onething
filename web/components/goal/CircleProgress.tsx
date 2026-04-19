@@ -3,7 +3,7 @@ import { circleDashArray } from "@/lib/calculations";
 export function CircleProgress({
   percent,
   size = 200,
-  stroke = 12,
+  stroke = 8,
 }: {
   percent: number;
   size?: number;
@@ -30,7 +30,7 @@ export function CircleProgress({
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke="#F0F0EB"
+          stroke="var(--surface-muted)"
           strokeWidth={stroke}
         />
         <circle
@@ -38,7 +38,7 @@ export function CircleProgress({
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke="#E8FF5A"
+          stroke="var(--brand)"
           strokeWidth={stroke}
           strokeDasharray={circumference}
           strokeDashoffset={offset}
@@ -46,11 +46,11 @@ export function CircleProgress({
           style={{ transition: "stroke-dashoffset 600ms ease-out" }}
         />
       </svg>
-      <div className="absolute flex flex-col items-center">
-        <span className="font-mono text-5xl tabular-nums text-accent">
+      <div className="absolute flex items-baseline gap-0.5">
+        <span className="font-display text-[56px] leading-none tabular-nums text-fg">
           {display}
         </span>
-        <span className="font-mono text-sm text-muted">%</span>
+        <span className="text-body-sm text-fg-muted">%</span>
       </div>
     </div>
   );

@@ -5,7 +5,7 @@ export function EmotionalMessage({ percent }: { percent: number }) {
   const t = useTranslations("progress.messages");
   const key = progressMessageKey(percent);
   return (
-    <p className="text-center font-display text-base italic text-muted">
+    <p className="text-center font-display text-[17px] italic leading-snug text-fg-muted">
       {t(key)}
     </p>
   );

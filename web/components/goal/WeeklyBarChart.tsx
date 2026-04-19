@@ -23,15 +23,17 @@ export function WeeklyBarChart({
         const d = new Date(date);
         const label = d.toLocaleDateString(locale, { weekday: "narrow" });
         return (
-          <div key={date} className="flex flex-1 flex-col items-center gap-1">
+          <div key={date} className="flex flex-1 flex-col items-center gap-1.5">
             <div className="flex h-24 w-full items-end">
               <div
-                className="w-full rounded-t bg-progress"
+                className="w-full rounded-t bg-brand transition-all"
                 style={{ height: `${height}%` }}
                 title={`${date}: ${Math.round(rate)}%`}
               />
             </div>
-            <span className="font-mono text-[10px] text-muted">{label}</span>
+            <span className="text-caption text-fg-subtle normal-case tracking-normal">
+              {label}
+            </span>
           </div>
         );
       })}

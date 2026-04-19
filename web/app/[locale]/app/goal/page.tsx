@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/server";
 import { TargetCard } from "@/components/goal/TargetCard";
 import { AddTargetForm } from "@/components/goal/AddTargetForm";
 import { GoalHeaderCard } from "@/components/goal/GoalHeaderCard";
+import { Button, Section } from "@/components/ui";
 import { completeGoal } from "@/lib/goal/mutations";
 import { goalProgressPercent } from "@/lib/calculations";
 
@@ -59,7 +60,7 @@ export default async function GoalPage({
   const canComplete = percent >= 100;
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-7">
       <GoalHeaderCard
         locale={params.locale}
         id={goal.id}
@@ -70,10 +71,7 @@ export default async function GoalPage({
         percent={percent}
       />
 
-      <section className="flex flex-col gap-3">
-        <h2 className="font-body text-sm font-medium text-accent">
-          {t("targets")}
-        </h2>
+      <Section title={t("targets")}>
         <div className="flex flex-col gap-3">
           {targetList.map((tg) => (
             <TargetCard
@@ -87,17 +85,13 @@ export default async function GoalPage({
           ))}
           <AddTargetForm />
         </div>
-      </section>
+      </Section>
 
       <form action={completeGoal}>
         <input type="hidden" name="locale" value={params.locale} />
-        <button
-          type="submit"
-          disabled={!canComplete}
-          className="w-full rounded-md bg-accent py-3 font-body text-sm text-white disabled:cursor-not-allowed disabled:opacity-40"
-        >
+        <Button type="submit" block size="lg" disabled={!canComplete}>
           {t("complete")}
-        </button>
+        </Button>
       </form>
     </div>
   );

@@ -3,6 +3,7 @@
 import { useState, useTransition } from "react";
 import { requestDeletion } from "@/lib/settings/deletion";
 import { ConfirmModal } from "@/components/layout/ConfirmModal";
+import { Button } from "@/components/ui";
 
 type Labels = {
   deleteAccount: string;
@@ -25,14 +26,16 @@ export function DeleteAccountButton({
 
   return (
     <div className="flex flex-col gap-3">
-      <p className="font-body text-xs text-muted">{labels.deleteBody}</p>
-      <button
+      <p className="text-body-sm text-fg-muted">{labels.deleteBody}</p>
+      <Button
         type="button"
+        variant="danger"
+        size="sm"
         onClick={() => setOpen(true)}
-        className="self-start rounded-md border border-danger bg-danger-bg px-3 py-1.5 font-body text-xs text-danger"
+        className="self-start"
       >
         {labels.deleteAccount}
-      </button>
+      </Button>
 
       <ConfirmModal
         open={open}

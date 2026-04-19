@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { createGoal } from "@/lib/onboarding/mutations";
+import { Button, Input } from "@/components/ui";
 
 type Initial = {
   title: string;
@@ -54,11 +55,9 @@ export function OnboardingGoalForm({
     <form action={createGoal} onSubmit={onSubmit} className="flex flex-col gap-4">
       <input type="hidden" name="locale" value={locale} />
 
-      <label className="flex flex-col gap-1">
-        <span className="font-body text-xs uppercase tracking-wider text-muted">
-          {t("titleLabel")}
-        </span>
-        <input
+      <label className="flex flex-col gap-1.5">
+        <span className="text-caption text-fg-subtle">{t("titleLabel")}</span>
+        <Input
           type="text"
           name="title"
           required
@@ -66,69 +65,58 @@ export function OnboardingGoalForm({
           value={title}
           onChange={(e) => setTitle(e.target.value)}
           placeholder={t("titlePlaceholder")}
-          className="rounded-md border border-border bg-card px-3 py-2 font-body text-base"
         />
       </label>
 
-      <label className="flex flex-col gap-1">
-        <span className="font-body text-xs uppercase tracking-wider text-muted">
+      <label className="flex flex-col gap-1.5">
+        <span className="text-caption text-fg-subtle">
           {t("descriptionLabel")}
         </span>
-        <input
+        <Input
           type="text"
           name="description"
           maxLength={500}
           value={description}
           onChange={(e) => setDescription(e.target.value)}
           placeholder={t("descriptionPlaceholder")}
-          className="rounded-md border border-border bg-card px-3 py-2 font-body text-sm"
         />
       </label>
 
       <fieldset className="flex flex-col gap-2">
-        <legend className="font-body text-xs uppercase tracking-wider text-muted">
-          {t("periodLabel")}
-        </legend>
+        <legend className="text-caption text-fg-subtle">{t("periodLabel")}</legend>
         <div className="flex gap-2">
-          <label className="flex flex-1 flex-col gap-1">
-            <span className="font-body text-xs text-muted">
-              {t("startLabel")}
-            </span>
-            <input
+          <label className="flex flex-1 flex-col gap-1.5">
+            <span className="text-body-sm text-fg-muted">{t("startLabel")}</span>
+            <Input
               type="date"
               name="start_date"
               required
               value={startDate}
               onChange={(e) => setStartDate(e.target.value)}
-              className="rounded-md border border-border bg-card px-3 py-2 font-mono text-sm"
+              className="font-mono"
             />
           </label>
-          <label className="flex flex-1 flex-col gap-1">
-            <span className="font-body text-xs text-muted">
-              {t("endLabel")}
-            </span>
-            <input
+          <label className="flex flex-1 flex-col gap-1.5">
+            <span className="text-body-sm text-fg-muted">{t("endLabel")}</span>
+            <Input
               type="date"
               name="end_date"
               required
               value={endDate}
               onChange={(e) => setEndDate(e.target.value)}
-              className="rounded-md border border-border bg-card px-3 py-2 font-mono text-sm"
+              className="font-mono"
             />
           </label>
         </div>
-        <p className="font-body text-xs text-muted">{t("periodHint")}</p>
+        <p className="text-body-sm text-fg-muted">{t("periodHint")}</p>
         {error ? (
-          <p className="font-body text-xs text-danger">{t("endBeforeStart")}</p>
+          <p className="text-body-sm text-danger">{t("endBeforeStart")}</p>
         ) : null}
       </fieldset>
 
-      <button
-        type="submit"
-        className="mt-2 w-full rounded-md bg-accent py-3 font-body text-sm text-white"
-      >
+      <Button type="submit" block size="lg" className="mt-2">
         {t("cta")}
-      </button>
+      </Button>
     </form>
   );
 }

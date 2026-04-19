@@ -48,21 +48,21 @@ export function AppHeader({
         onClick={() => setOpen((v) => !v)}
         aria-haspopup="menu"
         aria-expanded={open}
-        className="flex h-9 w-9 items-center justify-center rounded-full bg-card font-body text-sm font-semibold text-accent transition hover:bg-check-bg"
+        className="flex h-10 w-10 items-center justify-center rounded-full bg-surface-muted text-h3 text-fg transition hover:bg-accent-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
       >
         {initial}
       </button>
       {open ? (
         <div
           role="menu"
-          className="absolute right-0 top-11 z-20 w-56 overflow-hidden rounded-md border border-border bg-card shadow-lg"
+          className="absolute right-0 top-12 z-20 w-60 overflow-hidden rounded-lg border border-border bg-surface-elevated shadow-lg"
         >
-          <div className="flex flex-col gap-0.5 px-3 py-2.5">
-            <span className="font-body text-sm text-accent">
+          <div className="flex flex-col gap-0.5 px-4 py-3">
+            <span className="text-body text-fg">
               {displayName ?? email}
             </span>
             {displayName ? (
-              <span className="font-body text-xs text-muted">{email}</span>
+              <span className="text-body-sm text-fg-muted">{email}</span>
             ) : null}
           </div>
           <div className="border-t border-border" />
@@ -70,7 +70,7 @@ export function AppHeader({
             role="menuitem"
             href={`/${locale}/app/settings`}
             onClick={() => setOpen(false)}
-            className="flex items-center gap-2 px-3 py-2.5 font-body text-sm text-accent transition hover:bg-check-bg"
+            className="flex items-center gap-2.5 px-4 py-3 text-body text-fg transition hover:bg-accent-subtle"
           >
             <SettingsIcon />
             {t("title")}
@@ -79,7 +79,7 @@ export function AppHeader({
             <button
               type="submit"
               role="menuitem"
-              className="flex w-full items-center gap-2 px-3 py-2.5 font-body text-sm text-danger transition hover:bg-check-bg"
+              className="flex w-full items-center gap-2.5 px-4 py-3 text-body text-danger transition hover:bg-danger-bg"
             >
               <LogOutIcon />
               {t("signOut")}

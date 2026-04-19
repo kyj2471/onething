@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-import { colors, fonts, heatmapColors } from "./lib/design-tokens";
+import { colorVars, fontVars, radius, shadow } from "./lib/design-tokens";
 
 const config: Config = {
   content: [
@@ -11,29 +11,44 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        bg: colors.bg,
-        card: colors.card,
-        accent: colors.accent,
-        "accent-soft": colors.accentSoft,
-        progress: colors.progress,
-        "progress-bg": colors.progressBg,
-        muted: colors.muted,
-        border: colors.border,
-        check: colors.check,
-        "check-bg": colors.checkBg,
-        "warm-glow": colors.warmGlow,
-        danger: colors.danger,
-        "danger-bg": colors.dangerBg,
-        "heatmap-0": heatmapColors[0],
-        "heatmap-1": heatmapColors[1],
-        "heatmap-2": heatmapColors[2],
-        "heatmap-3": heatmapColors[3],
-        "heatmap-4": heatmapColors[4],
+        ...colorVars,
+        // Back-compat aliases — remove after Phase D migration.
+        card: colorVars.surface,
+        "accent-soft": colorVars["accent-hover"],
+        progress: colorVars.brand,
+        "progress-bg": colorVars["surface-muted"],
+        muted: colorVars["fg-muted"],
+        check: colorVars.success,
+        "check-bg": colorVars["success-bg"],
+        "warm-glow": colorVars["brand-bg"],
       },
       fontFamily: {
-        display: fonts.display.split(",").map((f) => f.trim().replace(/^'|'$/g, "")),
-        body: fonts.body.split(",").map((f) => f.trim().replace(/^'|'$/g, "")),
-        mono: fonts.mono.split(",").map((f) => f.trim().replace(/^'|'$/g, "")),
+        display: [fontVars.display, "Georgia", "serif"],
+        body: [fontVars.body, "Pretendard Variable", "system-ui", "sans-serif"],
+        mono: [fontVars.mono, "ui-monospace", "monospace"],
+        sans: [fontVars.body, "Pretendard Variable", "system-ui", "sans-serif"],
+      },
+      fontSize: {
+        display: ["32px", { lineHeight: "40px", letterSpacing: "-0.01em" }],
+        h1: ["24px", { lineHeight: "32px", letterSpacing: "-0.01em", fontWeight: "600" }],
+        h2: ["18px", { lineHeight: "26px", letterSpacing: "-0.005em", fontWeight: "600" }],
+        h3: ["16px", { lineHeight: "24px", fontWeight: "600" }],
+        body: ["15px", { lineHeight: "22px" }],
+        "body-sm": ["14px", { lineHeight: "20px" }],
+        caption: ["12px", { lineHeight: "16px", letterSpacing: "0.02em", fontWeight: "500" }],
+        mono: ["13px", { lineHeight: "18px" }],
+      },
+      borderRadius: {
+        sm: radius.sm,
+        md: radius.md,
+        lg: radius.lg,
+        xl: radius.xl,
+        full: radius.full,
+      },
+      boxShadow: {
+        sm: shadow.sm,
+        md: shadow.md,
+        lg: shadow.lg,
       },
     },
   },

@@ -9,8 +9,8 @@ export default function OnboardingLayout({
 }) {
   setRequestLocale(params.locale);
   return (
-    <div className="min-h-screen bg-bg text-accent">
-      <div className="mx-auto flex min-h-screen max-w-md flex-col gap-6 px-6 py-10">
+    <div className="min-h-screen bg-bg text-fg">
+      <div className="mx-auto flex min-h-screen max-w-md flex-col gap-7 px-6 py-10">
         {children}
       </div>
     </div>

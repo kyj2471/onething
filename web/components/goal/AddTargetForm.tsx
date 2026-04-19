@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { addTarget } from "@/lib/goal/mutations";
+import { Button, Input, NumberInput } from "@/components/ui";
 
 export function AddTargetForm() {
   const t = useTranslations("goal");
@@ -13,9 +14,9 @@ export function AddTargetForm() {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="rounded-md border border-dashed border-border py-3 font-body text-sm text-muted"
+        className="rounded-md border border-dashed border-border-strong py-3.5 text-body text-fg-muted transition hover:border-accent hover:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
       >
-        {t("addTarget")}
+        + {t("addTarget")}
       </button>
     );
   }
@@ -24,38 +25,34 @@ export function AddTargetForm() {
     <form
       action={addTarget}
       onSubmit={() => setOpen(false)}
-      className="flex flex-col gap-2 rounded-xl border border-border bg-card p-4"
+      className="flex flex-col gap-2 rounded-lg border border-border bg-surface p-4"
     >
-      <input
+      <Input
         type="text"
         name="title"
         required
         placeholder={t("titlePlaceholder")}
-        className="rounded-md border border-border bg-bg px-3 py-2 font-body text-sm"
       />
-      <input
-        type="number"
+      <NumberInput
         name="target_value"
         required
         min={1}
         step="any"
         placeholder={t("valuePlaceholder")}
-        className="rounded-md border border-border bg-bg px-3 py-2 font-mono text-sm"
+        className="font-mono"
       />
       <div className="flex gap-2">
-        <button
-          type="submit"
-          className="flex-1 rounded-md bg-accent py-2 font-body text-sm text-white"
-        >
+        <Button type="submit" block size="sm">
           {t("add")}
-        </button>
-        <button
+        </Button>
+        <Button
           type="button"
+          variant="secondary"
+          size="sm"
           onClick={() => setOpen(false)}
-          className="rounded-md border border-border px-4 py-2 font-body text-sm text-muted"
         >
           {t("cancel")}
-        </button>
+        </Button>
       </div>
     </form>
   );

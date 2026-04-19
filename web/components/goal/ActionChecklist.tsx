@@ -38,10 +38,8 @@ export function ActionChecklist({ actions }: { actions: ActionItem[] }) {
   return (
     <section className="flex flex-col gap-3">
       <header className="flex items-baseline justify-between">
-        <h2 className="font-body text-sm font-medium text-accent">
-          {t("actionsTitle")}
-        </h2>
-        <span className="font-mono text-xs tabular-nums text-muted">
+        <h2 className="text-h3 text-fg">{t("actionsTitle")}</h2>
+        <span className="text-mono tabular-nums text-fg-muted">
           {done}/{total}
         </span>
       </header>
@@ -52,16 +50,18 @@ export function ActionChecklist({ actions }: { actions: ActionItem[] }) {
               type="button"
               onClick={() => onToggle(a)}
               className={cn(
-                "flex w-full items-start gap-3 rounded-lg border border-border bg-card px-4 py-3 text-left transition",
-                a.completed && "bg-check-bg",
+                "flex w-full items-start gap-3 rounded-md border border-border bg-surface px-4 py-3 text-left transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg",
+                a.completed
+                  ? "bg-brand-bg border-transparent"
+                  : "hover:border-border-strong",
               )}
             >
               <span
                 className={cn(
-                  "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md border",
+                  "mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-md border transition",
                   a.completed
-                    ? "border-check bg-check text-white"
-                    : "border-border bg-card",
+                    ? "border-transparent bg-brand text-on-brand"
+                    : "border-border-strong bg-surface",
                 )}
                 aria-hidden
               >
@@ -71,16 +71,16 @@ export function ActionChecklist({ actions }: { actions: ActionItem[] }) {
                   </svg>
                 ) : null}
               </span>
-              <span className="flex flex-1 flex-col">
+              <span className="flex flex-1 flex-col gap-0.5">
                 <span
                   className={cn(
-                    "font-body text-sm text-accent",
-                    a.completed && "line-through opacity-70",
+                    "text-body text-fg",
+                    a.completed && "line-through text-fg-muted",
                   )}
                 >
                   {a.title}
                 </span>
-                <span className="font-mono text-xs uppercase tracking-wider text-muted">
+                <span className="text-caption text-fg-subtle">
                   {a.target_title}
                 </span>
               </span>
@@ -89,7 +89,7 @@ export function ActionChecklist({ actions }: { actions: ActionItem[] }) {
         ))}
       </ul>
       {allDone ? (
-        <p className="mt-1 text-center font-display italic text-muted">
+        <p className="mt-1 text-center font-display italic text-fg-muted">
           {t("allDone")}
         </p>
       ) : null}

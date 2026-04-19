@@ -2,6 +2,8 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { finishOnboarding } from "@/lib/onboarding/mutations";
+import { Badge, Button } from "@/components/ui";
+import { OnboardingStepper } from "@/components/onboarding/OnboardingStepper";
 
 export default async function TrialStepPage({
   params,
@@ -28,29 +30,29 @@ export default async function TrialStepPage({
     : null;
 
   return (
-    <main className="flex flex-1 flex-col justify-center gap-6 text-center">
-      <header>
-        <p className="font-mono text-xs uppercase tracking-wider text-muted">
-          {t("step")}
-        </p>
-        <h1 className="mt-2 font-display text-3xl italic">{t("title")}</h1>
-        <p className="mt-3 font-body text-sm text-muted">{t("body")}</p>
-        {trialEnd ? (
-          <p className="mt-4 rounded-md bg-warm-glow px-3 py-2 font-mono text-sm">
-            {t("endsOn", { date: trialEnd })}
-          </p>
-        ) : null}
-        <p className="mt-3 font-body text-xs text-muted">{t("cardLater")}</p>
-      </header>
-      <form action={finishOnboarding}>
-        <input type="hidden" name="locale" value={params.locale} />
-        <button
-          type="submit"
-          className="w-full rounded-md bg-accent py-3 font-body text-sm text-white"
-        >
-          {t("cta")}
-        </button>
-      </form>
+    <main className="flex flex-1 flex-col gap-7">
+      <OnboardingStepper step={5} ariaLabel={t("step")} />
+      <div className="flex flex-1 flex-col justify-center gap-6 text-center">
+        <header className="flex flex-col items-center gap-3">
+          <p className="text-caption text-fg-subtle">{t("step")}</p>
+          <h1 className="font-display text-[36px] italic leading-tight text-fg">
+            {t("title")}
+          </h1>
+          <p className="text-body text-fg-muted">{t("body")}</p>
+          {trialEnd ? (
+            <Badge variant="brand" className="mt-2 px-4 py-1.5 text-body-sm normal-case tracking-normal">
+              {t("endsOn", { date: trialEnd })}
+            </Badge>
+          ) : null}
+          <p className="text-body-sm text-fg-subtle">{t("cardLater")}</p>
+        </header>
+        <form action={finishOnboarding}>
+          <input type="hidden" name="locale" value={params.locale} />
+          <Button type="submit" block size="lg">
+            {t("cta")}
+          </Button>
+        </form>
+      </div>
     </main>
   );
 }

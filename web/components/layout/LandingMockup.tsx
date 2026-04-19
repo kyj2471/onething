@@ -1,6 +1,5 @@
 import { CircleProgress } from "@/components/goal/CircleProgress";
 import { MiniHeatmap } from "@/components/goal/MiniHeatmap";
-import { heatmapColors } from "@/lib/design-tokens";
 import { todayISO } from "@/lib/calculations";
 
 function buildDemoHeatmap() {
@@ -37,32 +36,26 @@ export function LandingMockup({
   };
 }) {
   return (
-    <div className="relative mx-auto w-full max-w-sm rounded-3xl border border-border bg-card p-6 shadow-xl">
+    <div className="relative mx-auto w-full max-w-sm rounded-2xl border border-border bg-surface p-6 shadow-lg">
       <div className="flex items-baseline justify-between">
-        <h3 className="font-display text-lg italic text-accent">Today</h3>
-        <span className="font-mono text-[10px] uppercase tracking-wider text-muted">
-          {todayISO()}
-        </span>
+        <h3 className="font-display text-[20px] italic leading-none text-fg">
+          Today
+        </h3>
+        <span className="text-caption text-fg-subtle">{todayISO()}</span>
       </div>
-      <div className="mt-5 flex flex-col items-center gap-3">
-        <p className="font-mono text-[10px] uppercase tracking-wider text-muted">
-          {labels.myGoal}
-        </p>
-        <p className="font-display text-base italic text-accent">
+      <div className="mt-6 flex flex-col items-center gap-3">
+        <p className="text-caption text-fg-subtle">{labels.myGoal}</p>
+        <p className="font-display text-[17px] italic leading-snug text-fg">
           {labels.goalTitle}
         </p>
-        <CircleProgress percent={64} size={150} stroke={10} />
-        <span
-          className="inline-flex items-center gap-2 rounded-full px-3 py-1 font-mono text-xs text-accent"
-          style={{ backgroundColor: heatmapColors[1] }}
-        >
-          🔥 {labels.streak}
+        <CircleProgress percent={64} size={144} stroke={8} />
+        <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-bg px-3 py-1 text-caption normal-case tracking-normal text-brand-fg">
+          <span aria-hidden>🔥</span>
+          {labels.streak}
         </span>
       </div>
-      <div className="mt-5">
-        <p className="mb-2 font-body text-xs font-medium text-accent">
-          {labels.actions}
-        </p>
+      <div className="mt-6">
+        <p className="mb-2 text-caption text-fg-subtle">{labels.actions}</p>
         <MiniHeatmap data={buildDemoHeatmap()} weeks={8} />
       </div>
       <ul className="mt-5 flex flex-col gap-2">
@@ -73,12 +66,19 @@ export function LandingMockup({
         ].map((a, i) => (
           <li
             key={i}
-            className="flex items-center gap-3 rounded-lg border border-border bg-bg px-3 py-2"
+            className={
+              "flex items-center gap-3 rounded-lg border px-3 py-2 transition " +
+              (a.done
+                ? "border-transparent bg-brand-bg"
+                : "border-border bg-bg")
+            }
           >
             <span
               className={
                 "flex h-4 w-4 items-center justify-center rounded-md border " +
-                (a.done ? "border-check bg-check text-white" : "border-border")
+                (a.done
+                  ? "border-transparent bg-brand text-on-brand"
+                  : "border-border-strong")
               }
               aria-hidden
             >
@@ -91,15 +91,13 @@ export function LandingMockup({
             <div className="flex flex-1 flex-col">
               <span
                 className={
-                  "font-body text-xs text-accent " +
-                  (a.done ? "line-through opacity-70" : "")
+                  "text-body-sm text-fg " +
+                  (a.done ? "line-through opacity-60" : "")
                 }
               >
                 {a.title}
               </span>
-              <span className="font-mono text-[10px] uppercase tracking-wider text-muted">
-                {a.target}
-              </span>
+              <span className="text-caption text-fg-subtle">{a.target}</span>
             </div>
           </li>
         ))}

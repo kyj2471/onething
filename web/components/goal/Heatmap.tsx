@@ -29,7 +29,7 @@ export function Heatmap({ data, days = 365 }: { data: ReadonlyArray<HeatmapCell>
                 <div
                   key={date}
                   title={`${date}: ${Math.round(rate)}%`}
-                  className={"h-3 w-3 rounded-sm " + (isToday ? "ring-1 ring-accent" : "")}
+                  className={"h-3 w-3 rounded-[3px] " + (isToday ? "ring-1 ring-accent ring-offset-1 ring-offset-bg" : "")}
                   style={{ backgroundColor: heatmapColors[level] }}
                 />
               );

@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { Heatmap } from "@/components/goal/Heatmap";
 import { WeeklyBarChart } from "@/components/goal/WeeklyBarChart";
+import { Card, Section } from "@/components/ui";
 import { rangeOfDays } from "@/lib/calculations";
 
 type HeatmapRow = {
@@ -87,46 +88,35 @@ export default async function ProgressPage({
   ];
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-7">
       <header>
-        <h1 className="font-display text-2xl italic text-accent">
+        <h1 className="font-display text-display italic text-fg">
           {t("title")}
         </h1>
       </header>
 
       <section className="grid grid-cols-2 gap-3">
         {stats.map((s) => (
-          <div
-            key={s.label}
-            className="flex flex-col gap-1 rounded-xl border border-border bg-card p-4"
-          >
-            <p className="font-mono text-[11px] uppercase tracking-wider text-muted">
-              {s.label}
-            </p>
-            <p className="font-mono text-xl tabular-nums text-accent">
+          <Card key={s.label} className="flex flex-col gap-1.5 p-4">
+            <p className="text-caption text-fg-subtle">{s.label}</p>
+            <p className="font-display text-[28px] italic leading-none tabular-nums text-fg">
               {s.value}
             </p>
-          </div>
+          </Card>
         ))}
       </section>
 
-      <section className="flex flex-col gap-3">
-        <h2 className="font-body text-sm font-medium text-accent">
-          {t("thisWeek")}
-        </h2>
-        <div className="rounded-xl border border-border bg-card p-4">
+      <Section title={t("thisWeek")}>
+        <Card>
           <WeeklyBarChart data={rows} locale={params.locale} />
-        </div>
-      </section>
+        </Card>
+      </Section>
 
-      <section className="flex flex-col gap-3">
-        <h2 className="font-body text-sm font-medium text-accent">
-          {t("yearActivity")}
-        </h2>
-        <div className="rounded-xl border border-border bg-card p-4">
+      <Section title={t("yearActivity")}>
+        <Card>
           <Heatmap data={rows} />
-        </div>
-      </section>
+        </Card>
+      </Section>
     </div>
   );
 }

@@ -7,6 +7,7 @@ import { ActionChecklist } from "@/components/goal/ActionChecklist";
 import { TargetProgressList } from "@/components/goal/TargetProgressList";
 import { StreakBadge } from "@/components/shared/StreakBadge";
 import { EmotionalMessage } from "@/components/shared/EmotionalMessage";
+import { Card, Section } from "@/components/ui";
 import { goalProgressPercent, todayISO } from "@/lib/calculations";
 
 export default async function TodayPage({
@@ -89,45 +90,37 @@ export default async function TodayPage({
   });
 
   return (
-    <div className="flex flex-col gap-6">
-      <header className="flex items-baseline justify-between">
-        <h1 className="font-display text-2xl italic text-accent">
+    <div className="flex flex-col gap-7">
+      <header className="flex items-baseline justify-between gap-3">
+        <h1 className="font-display text-display italic text-fg">
           {profile?.display_name
             ? t("greeting", { name: profile.display_name })
             : t("title")}
         </h1>
-        <span className="font-mono text-xs uppercase tracking-wider text-muted">
-          {todayLabel}
-        </span>
+        <span className="text-caption text-fg-subtle">{todayLabel}</span>
       </header>
 
-      <section className="flex flex-col items-center gap-4 rounded-xl bg-card px-4 py-6">
-        <p className="font-mono text-xs uppercase tracking-wider text-muted">
-          {t("myGoal")}
-        </p>
-        <h2 className="text-center font-display text-xl italic text-accent">
+      <Card padded={false} className="flex flex-col items-center gap-4 px-5 py-7">
+        <p className="text-caption text-fg-subtle">{t("myGoal")}</p>
+        <h2 className="text-center font-display text-[22px] italic leading-snug text-fg">
           {goal.title}
         </h2>
         <CircleProgress percent={percent} />
         <EmotionalMessage percent={percent} />
         <StreakBadge count={Number(streakValue ?? 0)} />
-      </section>
+      </Card>
 
       {(targets ?? []).length > 0 ? (
-        <section className="flex flex-col gap-3">
-          <h2 className="font-body text-sm font-medium text-accent">
-            {t("targetsTitle")}
-          </h2>
+        <Section title={t("targetsTitle")}>
           <TargetProgressList targets={targets ?? []} />
-        </section>
+        </Section>
       ) : null}
 
-      <section className="flex flex-col gap-3">
-        <h2 className="font-body text-sm font-medium text-accent">
-          {t("recentActivity")}
-        </h2>
-        <MiniHeatmap data={(heatmap ?? []) as { completed_date: string; completion_rate: number }[]} />
-      </section>
+      <Section title={t("recentActivity")}>
+        <MiniHeatmap
+          data={(heatmap ?? []) as { completed_date: string; completion_rate: number }[]}
+        />
+      </Section>
 
       <ActionChecklist actions={checklist} />
     </div>

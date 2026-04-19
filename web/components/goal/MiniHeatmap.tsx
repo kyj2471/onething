@@ -36,7 +36,7 @@ export function MiniHeatmap({
                 key={date}
                 title={`${date}: ${Math.round(rate)}%`}
                 className={
-                  "h-3.5 w-3.5 rounded-sm " + (isToday ? "ring-1 ring-accent" : "")
+                  "h-3.5 w-3.5 rounded-[3px] " + (isToday ? "ring-1 ring-accent ring-offset-1 ring-offset-bg" : "")
                 }
                 style={{ backgroundColor: heatmapColors[level] }}
               />

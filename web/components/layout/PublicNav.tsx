@@ -9,26 +9,26 @@ export async function PublicNav({ locale }: { locale: string }) {
       <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-4">
         <Link
           href={`/${locale}`}
-          className="font-display text-xl italic text-accent"
+          className="font-display text-[22px] italic leading-none text-fg"
         >
           OneThing
         </Link>
-        <nav className="flex items-center gap-4 font-body text-sm">
+        <nav className="flex items-center gap-5 text-body-sm">
           <Link
             href={`/${locale}/pricing`}
-            className="text-muted hover:text-accent"
+            className="text-fg-muted transition hover:text-fg"
           >
             {t("pricing")}
           </Link>
           <Link
             href={`/${locale}/login`}
-            className="text-muted hover:text-accent"
+            className="text-fg-muted transition hover:text-fg"
           >
             {t("login")}
           </Link>
           <Link
             href={`/${locale}/signup`}
-            className="rounded-md bg-accent px-4 py-2 text-white"
+            className="inline-flex h-9 items-center justify-center rounded-md bg-accent px-4 font-medium text-white dark:text-[#111111] shadow-sm transition hover:bg-accent-hover hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
           >
             {t("signup")}
           </Link>

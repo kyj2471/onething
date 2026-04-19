@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { createActions } from "@/lib/onboarding/mutations";
+import { Button, Card, IconButton } from "@/components/ui";
 
 type Target = {
   id: string;
@@ -78,7 +79,7 @@ export function OnboardingActionsForm({
     <form
       action={createActions}
       onSubmit={onSubmit}
-      className="flex flex-col gap-6"
+      className="flex flex-col gap-5"
     >
       <input type="hidden" name="locale" value={locale} />
 
@@ -90,22 +91,17 @@ export function OnboardingActionsForm({
         });
 
         return (
-          <section
-            key={target.id}
-            className="flex flex-col gap-3 rounded-xl border border-border bg-card p-4"
-          >
+          <Card key={target.id} className="flex flex-col gap-3">
             <header className="flex flex-col gap-1">
-              <span className="font-body text-sm font-medium text-accent">
-                {target.title}
-              </span>
-              <span className="font-mono text-xs text-muted">{context}</span>
+              <span className="text-body text-fg">{target.title}</span>
+              <span className="text-mono text-fg-muted">{context}</span>
             </header>
 
             <div className="flex flex-col gap-2">
               {cards.map((card) => (
                 <div
                   key={card.localId}
-                  className="flex items-center gap-2 rounded-md border border-border bg-bg px-2 py-1.5"
+                  className="flex items-center gap-1 rounded-md border border-border bg-surface-muted px-3 py-1.5 focus-within:border-accent"
                 >
                   <input
                     type="text"
@@ -115,17 +111,18 @@ export function OnboardingActionsForm({
                       updateCard(target.id, card.localId, e.target.value)
                     }
                     placeholder={t("placeholder")}
-                    className="flex-1 bg-transparent px-1 py-1 font-body text-sm outline-none"
+                    className="flex-1 bg-transparent py-1 text-body text-fg placeholder:text-fg-subtle outline-none"
                   />
                   {cards.length > 1 ? (
-                    <button
+                    <IconButton
                       type="button"
+                      size="sm"
                       onClick={() => removeCard(target.id, card.localId)}
                       aria-label={t("remove")}
-                      className="shrink-0 rounded px-2 py-0.5 font-mono text-xs text-muted hover:text-danger"
+                      className="h-7 w-7 hover:text-danger"
                     >
-                      ✕
-                    </button>
+                      <span aria-hidden className="text-body-sm">✕</span>
+                    </IconButton>
                   ) : null}
                 </div>
               ))}
@@ -134,22 +131,19 @@ export function OnboardingActionsForm({
             <button
               type="button"
               onClick={() => addCard(target.id)}
-              className="self-start font-body text-xs text-muted underline-offset-2 hover:underline"
+              className="self-start text-body-sm text-fg-muted underline-offset-2 hover:text-fg hover:underline"
             >
-              {t("addAction")}
+              + {t("addAction")}
             </button>
-          </section>
+          </Card>
         );
       })}
 
-      <p className="font-body text-xs text-muted">{t("hint")}</p>
+      <p className="text-body-sm text-fg-muted">{t("hint")}</p>
 
-      <button
-        type="submit"
-        className="mt-2 w-full rounded-md bg-accent py-3 font-body text-sm text-white"
-      >
+      <Button type="submit" block size="lg" className="mt-2">
         {t("cta")}
-      </button>
+      </Button>
     </form>
   );
 }

@@ -35,14 +35,14 @@ export default async function AppLayout({
     .maybeSingle();
 
   return (
-    <div className="flex min-h-screen flex-col bg-bg text-accent">
-      <div className="mx-auto flex w-full max-w-md flex-1 flex-col px-5 pb-6 pt-4">
+    <div className="flex min-h-screen flex-col bg-bg text-fg">
+      <div className="mx-auto flex w-full max-w-md flex-1 flex-col px-5 pb-8 pt-5">
         <AppHeader
           locale={params.locale}
           displayName={profile?.display_name ?? null}
           email={user.email ?? ""}
         />
-        <div className="mt-4 flex flex-1 flex-col">{children}</div>
+        <div className="mt-5 flex flex-1 flex-col">{children}</div>
       </div>
       <TabBar locale={params.locale} />
     </div>

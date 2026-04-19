@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { Button } from "@/components/ui";
 
 type ConfirmModalProps = {
   open: boolean;
@@ -36,42 +37,39 @@ export function ConfirmModal({
 
   if (!open) return null;
 
-  const confirmClass =
-    tone === "danger"
-      ? "bg-danger text-white"
-      : "bg-accent text-white";
-
   return (
     <div
       role="dialog"
       aria-modal="true"
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 p-4"
       onClick={(e) => {
         if (e.target === e.currentTarget && !pending) onCancel();
       }}
     >
-      <div className="w-full max-w-sm rounded-xl border border-border bg-card p-5 shadow-xl">
-        <h3 className="font-display text-lg italic text-accent">{title}</h3>
-        <p className="mt-2 font-body text-sm leading-relaxed text-muted">
-          {body}
-        </p>
-        <div className="mt-5 flex justify-end gap-2">
-          <button
+      <div className="w-full max-w-sm rounded-xl border border-border bg-surface-elevated p-6 shadow-lg">
+        <h3 className="font-display text-[20px] italic leading-snug text-fg">
+          {title}
+        </h3>
+        <p className="mt-2 text-body leading-relaxed text-fg-muted">{body}</p>
+        <div className="mt-6 flex justify-end gap-2">
+          <Button
             type="button"
+            variant="secondary"
+            size="sm"
             onClick={onCancel}
             disabled={pending}
-            className="rounded-md border border-border px-3 py-1.5 font-body text-xs text-accent disabled:opacity-60"
           >
             {cancelLabel}
-          </button>
-          <button
+          </Button>
+          <Button
             type="button"
+            variant={tone === "danger" ? "danger" : "primary"}
+            size="sm"
             disabled={pending}
             onClick={onConfirm}
-            className={`rounded-md px-3 py-1.5 font-body text-xs disabled:opacity-60 ${confirmClass}`}
           >
             {confirmLabel}
-          </button>
+          </Button>
         </div>
       </div>
     </div>

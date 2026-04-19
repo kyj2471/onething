@@ -2,6 +2,8 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { updateReminder } from "@/lib/onboarding/mutations";
+import { Button, Input } from "@/components/ui";
+import { OnboardingStepper } from "@/components/onboarding/OnboardingStepper";
 
 export default async function ReminderStepPage({
   params,
@@ -26,29 +28,27 @@ export default async function ReminderStepPage({
   const currentTime = profile?.reminder_time?.slice(0, 5) ?? "09:00";
 
   return (
-    <main className="flex flex-1 flex-col gap-6">
-      <header>
-        <p className="font-mono text-xs uppercase tracking-wider text-muted">
-          {t("step")}
-        </p>
-        <h1 className="mt-1 font-display text-3xl italic">{t("title")}</h1>
-        <p className="mt-2 font-body text-sm text-muted">{t("body")}</p>
+    <main className="flex flex-1 flex-col gap-7">
+      <OnboardingStepper step={4} ariaLabel={t("step")} />
+      <header className="flex flex-col gap-2">
+        <p className="text-caption text-fg-subtle">{t("step")}</p>
+        <h1 className="font-display text-[32px] italic leading-tight text-fg">
+          {t("title")}
+        </h1>
+        <p className="text-body text-fg-muted">{t("body")}</p>
       </header>
       <form action={updateReminder} className="flex flex-col gap-3">
         <input type="hidden" name="locale" value={params.locale} />
-        <input
+        <Input
           type="time"
           name="reminder_time"
           required
           defaultValue={currentTime}
-          className="rounded-md border border-border bg-card px-3 py-2 font-mono text-base"
+          className="h-12 font-mono text-body"
         />
-        <button
-          type="submit"
-          className="mt-2 w-full rounded-md bg-accent py-3 font-body text-sm text-white"
-        >
+        <Button type="submit" block size="lg" className="mt-2">
           {t("cta")}
-        </button>
+        </Button>
       </form>
     </main>
   );

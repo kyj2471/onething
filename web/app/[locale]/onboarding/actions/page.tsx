@@ -2,6 +2,7 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { redirect } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { OnboardingActionsForm } from "@/components/onboarding/OnboardingActionsForm";
+import { OnboardingStepper } from "@/components/onboarding/OnboardingStepper";
 
 export default async function ActionsStepPage({
   params,
@@ -52,13 +53,14 @@ export default async function ActionsStepPage({
   }
 
   return (
-    <main className="flex flex-1 flex-col gap-6">
-      <header>
-        <p className="font-mono text-xs uppercase tracking-wider text-muted">
-          {t("step")}
-        </p>
-        <h1 className="mt-1 font-display text-3xl italic">{t("title")}</h1>
-        <p className="mt-2 font-body text-sm text-muted">{t("body")}</p>
+    <main className="flex flex-1 flex-col gap-7">
+      <OnboardingStepper step={3} ariaLabel={t("step")} />
+      <header className="flex flex-col gap-2">
+        <p className="text-caption text-fg-subtle">{t("step")}</p>
+        <h1 className="font-display text-[32px] italic leading-tight text-fg">
+          {t("title")}
+        </h1>
+        <p className="text-body text-fg-muted">{t("body")}</p>
       </header>
       <OnboardingActionsForm
         locale={params.locale}

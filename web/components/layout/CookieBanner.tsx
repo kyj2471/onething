@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { Button } from "@/components/ui";
 
 const STORAGE_KEY = "onething.cookie.ack";
 
@@ -31,25 +32,21 @@ export function CookieBanner({ locale }: { locale: string }) {
     <div
       role="dialog"
       aria-label={t("title")}
-      className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-card px-4 py-3 shadow-lg"
+      className="fixed inset-x-0 bottom-0 z-50 border-t border-border bg-surface-elevated px-4 py-3 shadow-lg"
     >
       <div className="mx-auto flex max-w-2xl flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-        <p className="font-body text-xs text-muted">
+        <p className="text-body-sm text-fg-muted">
           {t("message")}{" "}
           <Link
             href={`/${locale}/privacy`}
-            className="text-accent underline"
+            className="text-fg underline underline-offset-2 hover:text-accent"
           >
             {t("learnMore")}
           </Link>
         </p>
-        <button
-          type="button"
-          onClick={accept}
-          className="shrink-0 rounded-md bg-accent px-4 py-2 font-body text-xs text-white"
-        >
+        <Button type="button" size="sm" onClick={accept} className="shrink-0">
           {t("accept")}
-        </button>
+        </Button>
       </div>
     </div>
   );

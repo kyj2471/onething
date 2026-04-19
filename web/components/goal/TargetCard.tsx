@@ -11,6 +11,7 @@ import { targetProgressPercent } from "@/lib/calculations";
 import { ConfirmModal } from "@/components/layout/ConfirmModal";
 import { AddActionForm } from "@/components/goal/AddActionForm";
 import { ActionRow } from "@/components/goal/ActionRow";
+import { Button, Card, IconButton, Input, NumberInput } from "@/components/ui";
 
 type Action = { id: string; title: string };
 
@@ -48,32 +49,27 @@ export function TargetCard({
   };
 
   return (
-    <article className="flex flex-col gap-3 rounded-xl border border-border bg-card p-4">
+    <Card className="flex flex-col gap-3">
       <div className="flex items-start justify-between gap-3">
         <div className="flex flex-1 flex-col gap-1">
-          <span className="font-body text-sm font-medium text-accent">
-            {title}
-          </span>
-          <span className="font-mono text-xs text-muted">
+          <span className="text-body text-fg">{title}</span>
+          <span className="text-mono text-fg-muted">
             {current_value} / {target_value}
           </span>
         </div>
         <div className="flex items-center gap-2">
-          <span className="font-mono text-sm tabular-nums text-accent">
-            {Math.round(percent)}%
-          </span>
+          <span className="text-mono text-fg">{Math.round(percent)}%</span>
           <div className="relative">
-            <button
-              type="button"
+            <IconButton
+              size="sm"
               aria-label={t("more")}
               onClick={() => setMenuOpen((v) => !v)}
-              className="rounded-md border border-border px-2 py-1 font-mono text-xs text-muted hover:text-accent"
             >
-              ⋯
-            </button>
+              <span aria-hidden>⋯</span>
+            </IconButton>
             {menuOpen ? (
               <div
-                className="absolute right-0 top-full z-10 mt-1 flex w-28 flex-col overflow-hidden rounded-md border border-border bg-card shadow-lg"
+                className="absolute right-0 top-full z-10 mt-1 flex w-28 flex-col overflow-hidden rounded-md border border-border bg-surface-elevated shadow-md"
                 onMouseLeave={() => setMenuOpen(false)}
               >
                 <button
@@ -82,7 +78,7 @@ export function TargetCard({
                     setEditingDetails(true);
                     setMenuOpen(false);
                   }}
-                  className="px-3 py-2 text-left font-body text-xs text-accent hover:bg-check-bg"
+                  className="px-3 py-2 text-left text-body-sm text-fg hover:bg-accent-subtle"
                 >
                   {t("edit")}
                 </button>
@@ -92,7 +88,7 @@ export function TargetCard({
                     setConfirmDelete(true);
                     setMenuOpen(false);
                   }}
-                  className="px-3 py-2 text-left font-body text-xs text-danger hover:bg-danger-bg"
+                  className="px-3 py-2 text-left text-body-sm text-danger hover:bg-danger-bg"
                 >
                   {t("delete")}
                 </button>
@@ -102,9 +98,9 @@ export function TargetCard({
         </div>
       </div>
 
-      <div className="h-2 w-full rounded-full bg-progress-bg">
+      <div className="h-1.5 w-full overflow-hidden rounded-full bg-surface-muted">
         <div
-          className="h-2 rounded-full bg-progress transition-all"
+          className="h-full rounded-full bg-brand transition-all"
           style={{ width: `${percent}%` }}
         />
       </div>
@@ -116,17 +112,15 @@ export function TargetCard({
           className="flex flex-col gap-2 border-t border-border pt-3"
         >
           <input type="hidden" name="target_id" value={id} />
-          <input
+          <Input
             type="text"
             name="title"
             required
             value={detTitle}
             onChange={(e) => setDetTitle(e.target.value)}
             placeholder={t("titlePlaceholder")}
-            className="rounded-md border border-border bg-bg px-3 py-2 font-body text-sm"
           />
-          <input
-            type="number"
+          <NumberInput
             name="target_value"
             required
             min={1}
@@ -134,26 +128,24 @@ export function TargetCard({
             value={detValue}
             onChange={(e) => setDetValue(e.target.value)}
             placeholder={t("valuePlaceholder")}
-            className="rounded-md border border-border bg-bg px-3 py-2 font-mono text-sm"
+            className="font-mono"
           />
           <div className="flex gap-2">
-            <button
-              type="submit"
-              className="flex-1 rounded-md bg-accent py-2 font-body text-sm text-white"
-            >
+            <Button type="submit" block size="sm">
               {t("save")}
-            </button>
-            <button
+            </Button>
+            <Button
               type="button"
+              variant="secondary"
+              size="sm"
               onClick={() => {
                 setEditingDetails(false);
                 setDetTitle(title);
                 setDetValue(String(target_value));
               }}
-              className="rounded-md border border-border px-4 py-2 font-body text-sm text-muted"
             >
               {t("cancel")}
-            </button>
+            </Button>
           </div>
         </form>
       ) : editingValue ? (
@@ -163,38 +155,35 @@ export function TargetCard({
           className="flex items-center gap-2"
         >
           <input type="hidden" name="target_id" value={id} />
-          <input
-            type="number"
+          <NumberInput
             name="current_value"
             required
             min={0}
             step="any"
             value={value}
             onChange={(e) => setValue(e.target.value)}
-            className="flex-1 rounded-md border border-border bg-bg px-3 py-2 font-mono text-sm"
+            className="flex-1 font-mono"
           />
-          <button
-            type="submit"
-            className="rounded-md bg-accent px-3 py-2 font-body text-xs text-white"
-          >
+          <Button type="submit" size="sm">
             {t("save")}
-          </button>
-          <button
+          </Button>
+          <Button
             type="button"
+            variant="secondary"
+            size="sm"
             onClick={() => {
               setEditingValue(false);
               setValue(String(current_value));
             }}
-            className="rounded-md border border-border px-3 py-2 font-body text-xs text-muted"
           >
             {t("cancel")}
-          </button>
+          </Button>
         </form>
       ) : (
         <button
           type="button"
           onClick={() => setEditingValue(true)}
-          className="self-start font-body text-xs text-muted underline-offset-2 hover:underline"
+          className="self-start text-body-sm text-fg-muted underline-offset-2 hover:text-fg hover:underline"
         >
           {t("updateValue")}
         </button>
@@ -221,6 +210,6 @@ export function TargetCard({
         onCancel={() => setConfirmDelete(false)}
         onConfirm={onDelete}
       />
-    </article>
+    </Card>
   );
 }

@@ -4,6 +4,7 @@ import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
 import { deleteAction, updateAction } from "@/lib/goal/mutations";
 import { ConfirmModal } from "@/components/layout/ConfirmModal";
+import { Button, IconButton, Input } from "@/components/ui";
 
 export function ActionRow({
   id,
@@ -35,50 +36,48 @@ export function ActionRow({
         className="flex items-center gap-2"
       >
         <input type="hidden" name="action_id" value={id} />
-        <input
+        <Input
           type="text"
           name="title"
           required
           autoFocus
           value={value}
           onChange={(e) => setValue(e.target.value)}
-          className="flex-1 rounded-md border border-border bg-bg px-2 py-1 font-body text-xs"
+          className="h-9 flex-1 text-body-sm"
         />
-        <button
-          type="submit"
-          className="rounded-md bg-accent px-2 py-1 font-body text-xs text-white"
-        >
+        <Button type="submit" size="sm">
           {t("save")}
-        </button>
-        <button
+        </Button>
+        <Button
           type="button"
+          variant="secondary"
+          size="sm"
           onClick={() => {
             setEditing(false);
             setValue(title);
           }}
-          className="rounded-md border border-border px-2 py-1 font-body text-xs text-muted"
         >
           {t("cancel")}
-        </button>
+        </Button>
       </form>
     );
   }
 
   return (
     <li className="flex items-center justify-between gap-2">
-      <span className="font-body text-xs text-muted">· {title}</span>
+      <span className="text-body-sm text-fg-muted">· {title}</span>
       <div className="relative">
-        <button
-          type="button"
+        <IconButton
+          size="sm"
           aria-label={t("more")}
           onClick={() => setMenuOpen((v) => !v)}
-          className="rounded px-1 font-mono text-xs text-muted hover:text-accent"
+          className="h-7 w-7"
         >
-          ⋯
-        </button>
+          <span aria-hidden>⋯</span>
+        </IconButton>
         {menuOpen ? (
           <div
-            className="absolute right-0 top-full z-10 mt-1 flex w-24 flex-col overflow-hidden rounded-md border border-border bg-card shadow-lg"
+            className="absolute right-0 top-full z-10 mt-1 flex w-24 flex-col overflow-hidden rounded-md border border-border bg-surface-elevated shadow-md"
             onMouseLeave={() => setMenuOpen(false)}
           >
             <button
@@ -87,7 +86,7 @@ export function ActionRow({
                 setEditing(true);
                 setMenuOpen(false);
               }}
-              className="px-2 py-1.5 text-left font-body text-xs text-accent hover:bg-check-bg"
+              className="px-3 py-1.5 text-left text-body-sm text-fg hover:bg-accent-subtle"
             >
               {t("edit")}
             </button>
@@ -97,7 +96,7 @@ export function ActionRow({
                 setConfirmDelete(true);
                 setMenuOpen(false);
               }}
-              className="px-2 py-1.5 text-left font-body text-xs text-danger hover:bg-danger-bg"
+              className="px-3 py-1.5 text-left text-body-sm text-danger hover:bg-danger-bg"
             >
               {t("delete")}
             </button>

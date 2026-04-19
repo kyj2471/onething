@@ -104,28 +104,28 @@ export default function HelpPage({
       title={ko ? "도움말·FAQ" : "Help & FAQ"}
       lastUpdated="2026-04-19"
     >
-      <p className="text-muted">
+      <p className="text-fg-muted">
         {ko ? "아직 답을 못 찾으셨나요? " : "Didn't find your answer? "}
         <a
           href="mailto:support@onething.app"
-          className="text-accent underline"
+          className="text-fg underline underline-offset-2 hover:text-accent"
         >
           support@onething.app
         </a>
       </p>
-      <div className="flex flex-col divide-y divide-border rounded-xl border border-border bg-card">
+      <div className="flex flex-col divide-y divide-border rounded-xl border border-border bg-surface">
         {faqs.map((faq, i) => (
           <details key={i} className="group px-4 py-3">
-            <summary className="flex cursor-pointer items-center justify-between gap-4 font-body text-sm font-medium text-accent">
+            <summary className="flex cursor-pointer items-center justify-between gap-4 text-body font-medium text-fg">
               <span>{faq.q}</span>
               <span
                 aria-hidden
-                className="text-muted transition-transform group-open:rotate-45"
+                className="text-fg-subtle transition-transform group-open:rotate-45"
               >
                 +
               </span>
             </summary>
-            <p className="mt-2 font-body text-sm leading-relaxed text-muted">
+            <p className="mt-2 text-body leading-relaxed text-fg-muted">
               {faq.a}
             </p>
           </details>

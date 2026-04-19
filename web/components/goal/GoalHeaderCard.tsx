@@ -4,6 +4,13 @@ import { useState, useTransition } from "react";
 import { useTranslations } from "next-intl";
 import { CircleProgress } from "@/components/goal/CircleProgress";
 import { ConfirmModal } from "@/components/layout/ConfirmModal";
+import {
+  Badge,
+  Button,
+  Card,
+  IconButton,
+  Input,
+} from "@/components/ui";
 import { deleteGoal, updateGoal } from "@/lib/goal/mutations";
 
 type Props = {
@@ -78,29 +85,28 @@ export function GoalHeaderCard({
   };
 
   return (
-    <article className="relative flex flex-col gap-4 rounded-2xl border border-border bg-card p-5">
+    <Card className="relative flex flex-col gap-5">
       <div className="flex items-start justify-between gap-3">
-        <div className="flex flex-col gap-1">
-          <p className="font-mono text-xs uppercase tracking-wider text-muted">
-            {t("label")}
-          </p>
-          <h1 className="font-display text-2xl italic text-accent">{title}</h1>
+        <div className="flex flex-col gap-1.5">
+          <p className="text-caption text-fg-subtle">{t("label")}</p>
+          <h1 className="font-display text-[28px] italic leading-tight text-fg">
+            {title}
+          </h1>
           {description ? (
-            <p className="font-body text-sm text-muted">{description}</p>
+            <p className="text-body text-fg-muted">{description}</p>
           ) : null}
         </div>
         <div className="relative">
-          <button
-            type="button"
+          <IconButton
+            size="sm"
             aria-label={t("more")}
             onClick={() => setMenuOpen((v) => !v)}
-            className="rounded-md border border-border px-2 py-1 font-mono text-sm text-muted hover:text-accent"
           >
-            ⋯
-          </button>
+            <span aria-hidden className="text-body-sm">⋯</span>
+          </IconButton>
           {menuOpen ? (
             <div
-              className="absolute right-0 top-full z-10 mt-1 flex w-32 flex-col overflow-hidden rounded-md border border-border bg-card shadow-lg"
+              className="absolute right-0 top-full z-10 mt-1 flex w-32 flex-col overflow-hidden rounded-md border border-border bg-surface-elevated shadow-md"
               onMouseLeave={() => setMenuOpen(false)}
             >
               <button
@@ -109,7 +115,7 @@ export function GoalHeaderCard({
                   setEditing(true);
                   setMenuOpen(false);
                 }}
-                className="px-3 py-2 text-left font-body text-xs text-accent hover:bg-check-bg"
+                className="px-3 py-2 text-left text-body-sm text-fg hover:bg-accent-subtle"
               >
                 {t("edit")}
               </button>
@@ -119,7 +125,7 @@ export function GoalHeaderCard({
                   setConfirmDelete(true);
                   setMenuOpen(false);
                 }}
-                className="px-3 py-2 text-left font-body text-xs text-danger hover:bg-danger-bg"
+                className="px-3 py-2 text-left text-body-sm text-danger hover:bg-danger-bg"
               >
                 {t("delete")}
               </button>
@@ -129,20 +135,20 @@ export function GoalHeaderCard({
       </div>
 
       <div className="flex items-center gap-5">
-        <CircleProgress percent={percent} size={120} stroke={10} />
-        <div className="flex flex-col gap-2 font-body text-xs text-muted">
+        <CircleProgress percent={percent} size={112} stroke={6} />
+        <div className="flex flex-col gap-2">
           <div>
-            <p className="uppercase tracking-wider">{t("period")}</p>
-            <p className="mt-0.5 font-mono text-sm text-accent">
+            <p className="text-caption text-fg-subtle">{t("period")}</p>
+            <p className="mt-1 text-mono text-fg">
               {startDate && endDate
-                ? `${startDate} ~ ${endDate}`
+                ? `${startDate} → ${endDate}`
                 : t("noPeriod")}
             </p>
           </div>
           {dDay ? (
-            <span className="self-start rounded-full bg-warm-glow px-3 py-1 font-mono text-xs text-accent">
+            <Badge variant="brand" className="self-start">
               {dDay}
-            </span>
+            </Badge>
           ) : null}
         </div>
       </div>
@@ -153,74 +159,66 @@ export function GoalHeaderCard({
           onSubmit={onSubmitEdit}
           className="flex flex-col gap-3 border-t border-border pt-4"
         >
-          <label className="flex flex-col gap-1">
-            <span className="font-body text-xs text-muted">
-              {t("label")}
-            </span>
-            <input
+          <label className="flex flex-col gap-1.5">
+            <span className="text-caption text-fg-subtle">{t("label")}</span>
+            <Input
               type="text"
               name="title"
               required
               value={formTitle}
               onChange={(e) => setFormTitle(e.target.value)}
               placeholder={t("goalTitlePlaceholder")}
-              className="rounded-md border border-border bg-bg px-3 py-2 font-body text-sm"
             />
           </label>
-          <label className="flex flex-col gap-1">
-            <span className="font-body text-xs text-muted">
+          <label className="flex flex-col gap-1.5">
+            <span className="text-caption text-fg-subtle">
               {t("descriptionPlaceholder")}
             </span>
-            <input
+            <Input
               type="text"
               name="description"
               value={formDescription}
               onChange={(e) => setFormDescription(e.target.value)}
-              className="rounded-md border border-border bg-bg px-3 py-2 font-body text-sm"
             />
           </label>
           <div className="flex gap-2">
-            <label className="flex flex-1 flex-col gap-1">
-              <span className="font-body text-xs text-muted">
+            <label className="flex flex-1 flex-col gap-1.5">
+              <span className="text-caption text-fg-subtle">
                 {t("startDate")}
               </span>
-              <input
+              <Input
                 type="date"
                 name="start_date"
                 required
                 value={formStart}
                 onChange={(e) => setFormStart(e.target.value)}
-                className="rounded-md border border-border bg-bg px-3 py-2 font-mono text-sm"
+                className="font-mono"
               />
             </label>
-            <label className="flex flex-1 flex-col gap-1">
-              <span className="font-body text-xs text-muted">
+            <label className="flex flex-1 flex-col gap-1.5">
+              <span className="text-caption text-fg-subtle">
                 {t("endDate")}
               </span>
-              <input
+              <Input
                 type="date"
                 name="end_date"
                 required
                 value={formEnd}
                 onChange={(e) => setFormEnd(e.target.value)}
-                className="rounded-md border border-border bg-bg px-3 py-2 font-mono text-sm"
+                className="font-mono"
               />
             </label>
           </div>
           {dateError ? (
-            <p className="font-body text-xs text-danger">
-              {t("endBeforeStart")}
-            </p>
+            <p className="text-body-sm text-danger">{t("endBeforeStart")}</p>
           ) : null}
           <div className="flex gap-2">
-            <button
-              type="submit"
-              className="flex-1 rounded-md bg-accent py-2 font-body text-sm text-white"
-            >
+            <Button type="submit" block>
               {t("save")}
-            </button>
-            <button
+            </Button>
+            <Button
               type="button"
+              variant="secondary"
               onClick={() => {
                 setEditing(false);
                 setFormTitle(title);
@@ -229,10 +227,9 @@ export function GoalHeaderCard({
                 setFormEnd(endDate ?? "");
                 setDateError(false);
               }}
-              className="rounded-md border border-border px-4 py-2 font-body text-sm text-muted"
             >
               {t("cancel")}
-            </button>
+            </Button>
           </div>
           <input type="hidden" name="goal_id" value={id} />
         </form>
@@ -248,6 +245,6 @@ export function GoalHeaderCard({
         onCancel={() => setConfirmDelete(false)}
         onConfirm={onDeleteConfirm}
       />
-    </article>
+    </Card>
   );
 }

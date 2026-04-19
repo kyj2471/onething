@@ -4,6 +4,7 @@ import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { createTargets } from "@/lib/onboarding/mutations";
 import { targetProgressPercent } from "@/lib/calculations";
+import { Badge, Button, Card, Input, NumberInput } from "@/components/ui";
 
 type Row = { title: string; target: string; current: string };
 
@@ -50,9 +51,9 @@ export function TargetRowsForm({
       <input type="hidden" name="locale" value={locale} />
 
       {objectiveTitle ? (
-        <div className="rounded-full bg-warm-glow px-4 py-2 text-center font-body text-xs text-accent">
+        <Badge variant="brand" className="self-center px-4 py-1.5 text-body-sm normal-case tracking-normal">
           {t("objectiveContext", { title: objectiveTitle })}
-        </div>
+        </Badge>
       ) : null}
 
       {rows.map((row, i) => {
@@ -68,42 +69,36 @@ export function TargetRowsForm({
           ? targetProgressPercent(currentNum, targetNum)
           : 0;
         return (
-          <div
-            key={i}
-            className="flex flex-col gap-3 rounded-xl border border-border bg-card p-4"
-          >
-            <input
+          <Card key={i} className="flex flex-col gap-3">
+            <Input
               type="text"
               name="target_title"
               value={row.title}
               onChange={(e) => update(i, "title", e.target.value)}
               placeholder={t("titlePlaceholder")}
               required
-              className="rounded-md border border-border bg-bg px-3 py-2 font-body text-sm"
             />
 
             <div className="flex gap-2">
-              <label className="flex flex-1 flex-col gap-1">
-                <span className="font-body text-xs text-muted">
+              <label className="flex flex-1 flex-col gap-1.5">
+                <span className="text-caption text-fg-subtle">
                   {t("currentLabel")}
                 </span>
-                <input
-                  type="number"
+                <NumberInput
                   name="target_current"
                   value={row.current}
                   onChange={(e) => update(i, "current", e.target.value)}
                   placeholder={t("currentPlaceholder")}
                   min={0}
                   step="any"
-                  className="rounded-md border border-border bg-bg px-3 py-2 font-mono text-sm"
+                  className="font-mono"
                 />
               </label>
-              <label className="flex flex-1 flex-col gap-1">
-                <span className="font-body text-xs text-muted">
+              <label className="flex flex-1 flex-col gap-1.5">
+                <span className="text-caption text-fg-subtle">
                   {t("targetLabel")}
                 </span>
-                <input
-                  type="number"
+                <NumberInput
                   name="target_value"
                   value={row.target}
                   onChange={(e) => update(i, "target", e.target.value)}
@@ -111,22 +106,22 @@ export function TargetRowsForm({
                   required
                   min={0.01}
                   step="any"
-                  className="rounded-md border border-border bg-bg px-3 py-2 font-mono text-sm"
+                  className="font-mono"
                 />
               </label>
             </div>
 
             {preview || rows.length > 1 ? (
-              <div className="flex flex-col gap-2 border-t border-border pt-2">
+              <div className="flex flex-col gap-2 border-t border-border pt-3">
                 <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs text-muted">
+                  <span className="text-mono text-fg-muted">
                     {preview ?? ""}
                   </span>
                   {rows.length > 1 ? (
                     <button
                       type="button"
                       onClick={() => remove(i)}
-                      className="font-body text-xs text-muted hover:text-danger"
+                      className="text-body-sm text-fg-muted hover:text-danger"
                     >
                       {t("remove")}
                     </button>
@@ -134,39 +129,36 @@ export function TargetRowsForm({
                 </div>
                 {showProgress ? (
                   <div className="flex items-center gap-2">
-                    <div className="h-1 flex-1 overflow-hidden rounded-full bg-border">
+                    <div className="h-1 flex-1 overflow-hidden rounded-full bg-surface-muted">
                       <div
-                        className="h-full rounded-full bg-accent transition-all"
+                        className="h-full rounded-full bg-brand transition-all"
                         style={{ width: `${percent}%` }}
                       />
                     </div>
-                    <span className="w-10 shrink-0 text-right font-mono text-xs text-muted">
+                    <span className="w-12 shrink-0 text-right text-mono text-fg-muted">
                       {t("progressLabel", { percent: Math.round(percent) })}
                     </span>
                   </div>
                 ) : null}
               </div>
             ) : null}
-          </div>
+          </Card>
         );
       })}
 
       <button
         type="button"
         onClick={add}
-        className="rounded-md border border-dashed border-border py-2 font-body text-sm text-muted"
+        className="rounded-md border border-dashed border-border-strong py-2.5 text-body text-fg-muted transition hover:border-accent hover:text-fg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
       >
-        {t("addRow")}
+        + {t("addRow")}
       </button>
 
-      <p className="font-body text-xs text-muted">{t("hint")}</p>
+      <p className="text-body-sm text-fg-muted">{t("hint")}</p>
 
-      <button
-        type="submit"
-        className="mt-2 w-full rounded-md bg-accent py-3 font-body text-sm text-white"
-      >
+      <Button type="submit" block size="lg" className="mt-2">
         {t("cta")}
-      </button>
+      </Button>
     </form>
   );
 }

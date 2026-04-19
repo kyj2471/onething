@@ -4,6 +4,7 @@ import { setRequestLocale, getTranslations } from "next-intl/server";
 import { PublicNav } from "@/components/layout/PublicNav";
 import { PublicFooter } from "@/components/layout/PublicFooter";
 import { LandingMockup } from "@/components/layout/LandingMockup";
+import { Card } from "@/components/ui";
 
 export async function generateMetadata({
   params,
@@ -41,73 +42,65 @@ export default async function LandingPage({
   const t = await getTranslations("landing");
 
   return (
-    <div className="flex min-h-screen flex-col bg-bg text-accent">
+    <div className="flex min-h-screen flex-col bg-bg text-fg">
       <PublicNav locale={params.locale} />
 
       <main className="flex-1">
         {/* Hero */}
-        <section className="mx-auto flex max-w-3xl flex-col items-center gap-6 px-6 py-20 text-center sm:py-28">
-          <h1 className="font-display text-5xl italic leading-tight sm:text-6xl">
+        <section className="mx-auto flex max-w-3xl flex-col items-center gap-7 px-6 py-20 text-center sm:py-28">
+          <h1 className="font-display text-[52px] italic leading-[1.05] text-fg sm:text-[68px]">
             {t("hero.title")}
           </h1>
-          <p className="max-w-xl font-body text-lg text-muted">
+          <p className="max-w-xl text-[18px] leading-relaxed text-fg-muted">
             {t("hero.tagline")}
           </p>
-          <div className="mt-4 flex flex-col items-center gap-3 sm:flex-row">
+          <div className="mt-3 flex flex-col items-center gap-4 sm:flex-row">
             <Link
               href={`/${params.locale}/signup`}
-              className="rounded-md bg-accent px-6 py-3 font-body text-sm text-white"
+              className="inline-flex h-12 items-center justify-center rounded-md bg-accent px-7 text-body font-medium text-white dark:text-[#111111] shadow-sm transition hover:bg-accent-hover hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
             >
               {t("hero.cta")}
             </Link>
             <Link
               href={`/${params.locale}/pricing`}
-              className="font-body text-sm text-muted underline-offset-4 hover:underline"
+              className="text-body text-fg-muted underline-offset-4 hover:text-fg hover:underline"
             >
               {t("hero.ctaSecondary")}
             </Link>
           </div>
-          <p className="font-mono text-xs uppercase tracking-wider text-muted">
-            {t("hero.trust")}
-          </p>
+          <p className="text-caption text-fg-subtle">{t("hero.trust")}</p>
         </section>
 
         {/* Value props */}
-        <section className="mx-auto max-w-5xl px-6 py-16">
-          <div className="grid gap-6 sm:grid-cols-3">
+        <section className="mx-auto max-w-5xl px-6 py-14">
+          <div className="grid gap-5 sm:grid-cols-3">
             {(["focus", "okr", "streak"] as const).map((key) => (
-              <article
-                key={key}
-                className="flex flex-col gap-3 rounded-xl border border-border bg-card p-6"
-              >
-                <span
-                  aria-hidden
-                  className="font-mono text-[11px] uppercase tracking-wider text-muted"
-                >
+              <Card key={key} className="flex flex-col gap-3 p-6">
+                <span aria-hidden className="text-caption text-fg-subtle">
                   {t(`valueProps.${key}.kicker`)}
                 </span>
-                <h2 className="font-display text-xl italic">
+                <h2 className="font-display text-[22px] italic leading-snug text-fg">
                   {t(`valueProps.${key}.title`)}
                 </h2>
-                <p className="font-body text-sm leading-relaxed text-muted">
+                <p className="text-body leading-relaxed text-fg-muted">
                   {t(`valueProps.${key}.body`)}
                 </p>
-              </article>
+              </Card>
             ))}
           </div>
         </section>
 
         {/* Product mockup */}
-        <section className="mx-auto max-w-5xl px-6 py-16">
+        <section className="mx-auto max-w-5xl px-6 py-14">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <div className="flex flex-col gap-4">
-              <h2 className="font-display text-3xl italic">
+              <h2 className="font-display text-[36px] italic leading-tight text-fg">
                 {t("mockup.title")}
               </h2>
-              <p className="font-body text-base leading-relaxed text-muted">
+              <p className="text-[17px] leading-relaxed text-fg-muted">
                 {t("mockup.body")}
               </p>
-              <ul className="mt-2 flex flex-col gap-2 font-body text-sm text-accent">
+              <ul className="mt-2 flex flex-col gap-2 text-body text-fg">
                 <li>· {t("mockup.bullet1")}</li>
                 <li>· {t("mockup.bullet2")}</li>
                 <li>· {t("mockup.bullet3")}</li>
@@ -131,42 +124,46 @@ export default async function LandingPage({
         </section>
 
         {/* Pricing preview */}
-        <section className="mx-auto max-w-3xl px-6 py-16">
+        <section className="mx-auto max-w-3xl px-6 py-14">
           <div className="flex flex-col items-center gap-3 text-center">
-            <h2 className="font-display text-3xl italic">
+            <h2 className="font-display text-[36px] italic leading-tight text-fg">
               {t("pricingPreview.title")}
             </h2>
-            <p className="font-body text-base text-muted">
+            <p className="text-[17px] text-fg-muted">
               {t("pricingPreview.body")}
             </p>
           </div>
           <div className="mt-8 grid gap-4 sm:grid-cols-2">
-            <div className="rounded-xl border border-border bg-card p-6">
-              <p className="font-mono text-[11px] uppercase tracking-wider text-muted">
+            <Card className="p-6">
+              <p className="text-caption text-fg-subtle">
                 {t("pricingPreview.monthly")}
               </p>
-              <p className="mt-2 font-display text-3xl italic">$4.99</p>
-              <p className="font-mono text-xs text-muted">
+              <p className="mt-2 font-display text-[32px] italic leading-none text-fg">
+                $4.99
+              </p>
+              <p className="mt-1 text-mono text-fg-muted">
                 {t("pricingPreview.perMonth")}
               </p>
-            </div>
-            <div className="relative rounded-xl border border-accent bg-card p-6">
-              <span className="absolute right-4 top-4 rounded-full bg-warm-glow px-2 py-0.5 font-mono text-[10px] uppercase tracking-wider text-accent">
+            </Card>
+            <Card className="relative border-accent p-6">
+              <span className="absolute right-4 top-4 rounded-full bg-brand-bg px-2.5 py-0.5 text-caption text-brand-fg">
                 {t("pricingPreview.save")}
               </span>
-              <p className="font-mono text-[11px] uppercase tracking-wider text-muted">
+              <p className="text-caption text-fg-subtle">
                 {t("pricingPreview.annual")}
               </p>
-              <p className="mt-2 font-display text-3xl italic">$34.99</p>
-              <p className="font-mono text-xs text-muted">
+              <p className="mt-2 font-display text-[32px] italic leading-none text-fg">
+                $34.99
+              </p>
+              <p className="mt-1 text-mono text-fg-muted">
                 {t("pricingPreview.perYear")}
               </p>
-            </div>
+            </Card>
           </div>
           <div className="mt-6 flex justify-center">
             <Link
               href={`/${params.locale}/pricing`}
-              className="font-body text-sm text-accent underline underline-offset-4"
+              className="text-body text-fg underline underline-offset-4 hover:text-accent"
             >
               {t("pricingPreview.cta")}
             </Link>
@@ -175,15 +172,15 @@ export default async function LandingPage({
 
         {/* Final CTA */}
         <section className="mx-auto max-w-3xl px-6 py-20 text-center">
-          <h2 className="font-display text-3xl italic">
+          <h2 className="font-display text-[36px] italic leading-tight text-fg">
             {t("finalCta.title")}
           </h2>
-          <p className="mt-3 font-body text-base text-muted">
+          <p className="mt-3 text-[17px] text-fg-muted">
             {t("finalCta.body")}
           </p>
           <Link
             href={`/${params.locale}/signup`}
-            className="mt-6 inline-block rounded-md bg-accent px-6 py-3 font-body text-sm text-white"
+            className="mt-7 inline-flex h-12 items-center justify-center rounded-md bg-accent px-7 text-body font-medium text-white dark:text-[#111111] shadow-sm transition hover:bg-accent-hover hover:shadow-md focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
           >
             {t("hero.cta")}
           </Link>

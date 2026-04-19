@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useTranslations } from "next-intl";
 import { addAction } from "@/lib/goal/mutations";
+import { Button, Input } from "@/components/ui";
 
 export function AddActionForm({ targetId }: { targetId: string }) {
   const t = useTranslations("goal");
@@ -14,9 +15,9 @@ export function AddActionForm({ targetId }: { targetId: string }) {
       <button
         type="button"
         onClick={() => setOpen(true)}
-        className="self-start font-body text-xs text-muted underline-offset-2 hover:underline"
+        className="self-start text-body-sm text-fg-muted underline-offset-2 hover:text-fg hover:underline"
       >
-        {t("addAction")}
+        + {t("addAction")}
       </button>
     );
   }
@@ -31,7 +32,7 @@ export function AddActionForm({ targetId }: { targetId: string }) {
       className="flex items-center gap-2"
     >
       <input type="hidden" name="target_id" value={targetId} />
-      <input
+      <Input
         type="text"
         name="title"
         required
@@ -39,24 +40,22 @@ export function AddActionForm({ targetId }: { targetId: string }) {
         value={title}
         onChange={(e) => setTitle(e.target.value)}
         placeholder={t("actionPlaceholder")}
-        className="flex-1 rounded-md border border-border bg-bg px-2 py-1.5 font-body text-xs"
+        className="h-9 flex-1 text-body-sm"
       />
-      <button
-        type="submit"
-        className="rounded-md bg-accent px-2 py-1.5 font-body text-xs text-white"
-      >
+      <Button type="submit" size="sm">
         {t("add")}
-      </button>
-      <button
+      </Button>
+      <Button
         type="button"
+        variant="secondary"
+        size="sm"
         onClick={() => {
           setOpen(false);
           setTitle("");
         }}
-        className="rounded-md border border-border px-2 py-1.5 font-body text-xs text-muted"
       >
         {t("cancel")}
-      </button>
+      </Button>
     </form>
   );
 }

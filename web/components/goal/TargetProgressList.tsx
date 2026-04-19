@@ -23,7 +23,9 @@ export function TargetProgressList({ targets }: { targets: Item[] }) {
           <TargetProgressRow key={item.id} item={item} />
         ))}
       </ul>
-      <p className="font-body text-xs text-muted">{t("editCurrentHint")}</p>
+      <p className="text-caption text-fg-subtle normal-case tracking-normal">
+        {t("editCurrentHint")}
+      </p>
     </div>
   );
 }
@@ -57,8 +59,8 @@ function TargetProgressRow({ item }: { item: Item }) {
   return (
     <li className="flex flex-col gap-1.5">
       <div className="flex items-baseline justify-between gap-3">
-        <span className="font-body text-sm text-accent">{item.title}</span>
-        <span className="flex items-baseline gap-1 font-mono text-xs tabular-nums text-muted">
+        <span className="text-body text-fg">{item.title}</span>
+        <span className="flex items-baseline gap-1.5 text-mono tabular-nums text-fg-muted">
           {editing ? (
             <input
               type="number"
@@ -76,28 +78,28 @@ function TargetProgressRow({ item }: { item: Item }) {
                   setEditing(false);
                 }
               }}
-              className="w-16 rounded border border-accent bg-bg px-1 py-0.5 text-right font-mono text-xs tabular-nums text-accent outline-none"
+              className="w-16 rounded-sm border border-accent bg-surface px-1.5 py-0.5 text-right text-mono tabular-nums text-fg outline-none"
             />
           ) : (
             <button
               type="button"
               onClick={() => setEditing(true)}
               aria-label={t("editCurrentAria")}
-              className="inline-flex items-center gap-1 rounded-md bg-check-bg px-1.5 py-0.5 font-mono text-xs tabular-nums text-accent transition hover:bg-warm-glow"
+              className="inline-flex items-center gap-1 rounded-sm bg-accent-subtle px-1.5 py-0.5 text-mono tabular-nums text-fg transition hover:bg-brand-bg focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-1 focus-visible:ring-offset-bg"
             >
               <PencilIcon />
               {optimistic}
             </button>
           )}
-          <span>
+          <span className="text-fg-subtle">
             {" / "}
             {item.target_value} · {Math.round(percent)}%
           </span>
         </span>
       </div>
-      <div className="h-1.5 w-full overflow-hidden rounded-full bg-progress-bg">
+      <div className="h-1.5 w-full overflow-hidden rounded-full bg-surface-muted">
         <div
-          className="h-full rounded-full bg-progress transition-all"
+          className="h-full rounded-full bg-brand transition-all"
           style={{ width: `${percent}%` }}
         />
       </div>
@@ -108,15 +110,15 @@ function TargetProgressRow({ item }: { item: Item }) {
 function PencilIcon() {
   return (
     <svg
-      width={12}
-      height={12}
+      width={11}
+      height={11}
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
       strokeWidth={1.8}
       strokeLinecap="round"
       strokeLinejoin="round"
-      className="text-muted"
+      className="text-fg-muted"
       aria-hidden="true"
     >
       <path d="M12 20h9" />
