@@ -1,0 +1,20 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --bg: #fafaf7;
+  --fg: #1a1a1a;
+}
+
+body {
+  color: var(--fg);
+  background: var(--bg);
+  font-family: "Helvetica Neue", "Segoe UI", sans-serif;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
