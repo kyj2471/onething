@@ -59,6 +59,21 @@ export async function updateTheme(formData: FormData): Promise<void> {
   revalidatePath("/", "layout");
 }
 
+export async function persistTheme(theme: "light" | "dark"): Promise<void> {
+  cookies().set("onething_theme", theme, {
+    path: "/",
+    maxAge: 60 * 60 * 24 * 365,
+    sameSite: "lax",
+  });
+  const supabase = createClient();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
+  if (user) {
+    await supabase.from("profiles").update({ theme }).eq("id", user.id);
+  }
+}
+
 const languageSchema = z.object({
   locale: z.enum(["en", "ko"]),
   current: z.string(),

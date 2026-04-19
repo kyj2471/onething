@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { useTranslations } from "next-intl";
 import { signout } from "@/app/auth/actions";
+import { Logo } from "@/components/ui";
+import { ThemeToggle } from "@/components/theme/ThemeToggle";
 
 function initialFrom(displayName: string | null, email: string): string {
   const source = displayName?.trim() || email;
@@ -42,51 +44,61 @@ export function AppHeader({
   const initial = initialFrom(displayName, email);
 
   return (
-    <div ref={wrapRef} className="relative flex justify-end">
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        aria-haspopup="menu"
-        aria-expanded={open}
-        className="flex h-10 w-10 items-center justify-center rounded-full bg-surface-muted text-h3 text-fg transition hover:bg-accent-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+    <div className="relative flex items-center justify-between">
+      <Link
+        href={`/${locale}/app/today`}
+        className="flex items-center gap-2 font-display text-[20px] italic leading-none text-fg transition hover:opacity-80"
       >
-        {initial}
-      </button>
-      {open ? (
-        <div
-          role="menu"
-          className="absolute right-0 top-12 z-20 w-60 overflow-hidden rounded-lg border border-border bg-surface-elevated shadow-lg"
+        <Logo className="h-5 w-5 shrink-0" />
+        OneThing
+      </Link>
+      <div ref={wrapRef} className="relative flex items-center gap-2">
+        <ThemeToggle />
+        <button
+          type="button"
+          onClick={() => setOpen((v) => !v)}
+          aria-haspopup="menu"
+          aria-expanded={open}
+          className="flex h-10 w-10 items-center justify-center rounded-full bg-surface-muted text-h3 text-fg transition hover:bg-accent-subtle focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
         >
-          <div className="flex flex-col gap-0.5 px-4 py-3">
-            <span className="text-body text-fg">
-              {displayName ?? email}
-            </span>
-            {displayName ? (
-              <span className="text-body-sm text-fg-muted">{email}</span>
-            ) : null}
-          </div>
-          <div className="border-t border-border" />
-          <Link
-            role="menuitem"
-            href={`/${locale}/app/settings`}
-            onClick={() => setOpen(false)}
-            className="flex items-center gap-2.5 px-4 py-3 text-body text-fg transition hover:bg-accent-subtle"
+          {initial}
+        </button>
+        {open ? (
+          <div
+            role="menu"
+            className="absolute right-0 top-12 z-20 w-60 overflow-hidden rounded-lg border border-border bg-surface-elevated shadow-lg"
           >
-            <SettingsIcon />
-            {t("title")}
-          </Link>
-          <form action={signout.bind(null, locale)}>
-            <button
-              type="submit"
+            <div className="flex flex-col gap-0.5 px-4 py-3">
+              <span className="text-body text-fg">
+                {displayName ?? email}
+              </span>
+              {displayName ? (
+                <span className="text-body-sm text-fg-muted">{email}</span>
+              ) : null}
+            </div>
+            <div className="border-t border-border" />
+            <Link
               role="menuitem"
-              className="flex w-full items-center gap-2.5 px-4 py-3 text-body text-danger transition hover:bg-danger-bg"
+              href={`/${locale}/app/settings`}
+              onClick={() => setOpen(false)}
+              className="flex items-center gap-2.5 px-4 py-3 text-body text-fg transition hover:bg-accent-subtle"
             >
-              <LogOutIcon />
-              {t("signOut")}
-            </button>
-          </form>
-        </div>
-      ) : null}
+              <SettingsIcon />
+              {t("title")}
+            </Link>
+            <form action={signout.bind(null, locale)}>
+              <button
+                type="submit"
+                role="menuitem"
+                className="flex w-full items-center gap-2.5 px-4 py-3 text-body text-danger transition hover:bg-danger-bg"
+              >
+                <LogOutIcon />
+                {t("signOut")}
+              </button>
+            </form>
+          </div>
+        ) : null}
+      </div>
     </div>
   );
 }

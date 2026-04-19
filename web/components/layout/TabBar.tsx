@@ -17,7 +17,7 @@ export function TabBar({ locale }: { locale: string }) {
       aria-label="Primary"
       className="sticky bottom-0 z-10 border-t border-border bg-surface/95 backdrop-blur"
     >
-      <ul className="mx-auto flex h-16 max-w-md">
+      <ul className="mx-auto flex h-16 max-w-md sm:max-w-xl lg:max-w-2xl">
         {TABS.map((tab) => {
           const isActive = tab === active;
           return (

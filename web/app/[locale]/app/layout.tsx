@@ -36,7 +36,7 @@ export default async function AppLayout({
 
   return (
     <div className="flex min-h-screen flex-col bg-bg text-fg">
-      <div className="mx-auto flex w-full max-w-md flex-1 flex-col px-5 pb-8 pt-5">
+      <div className="mx-auto flex w-full max-w-md flex-1 flex-col px-5 pb-8 pt-5 sm:max-w-xl lg:max-w-2xl">
         <AppHeader
           locale={params.locale}
           displayName={profile?.display_name ?? null}

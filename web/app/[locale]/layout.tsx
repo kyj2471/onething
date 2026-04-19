@@ -26,6 +26,7 @@ const mono = JetBrains_Mono({
 export const metadata: Metadata = {
   title: "OneThing",
   description: "Focus on just one goal.",
+  icons: { icon: "/icon.svg" },
 };
 
 export function generateStaticParams() {

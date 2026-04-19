@@ -45,7 +45,7 @@ export default async function PricingPage({
           <p className="text-caption text-fg-subtle">{t("trial")}</p>
         </section>
 
-        <section className="mx-auto max-w-4xl px-6 pb-10">
+        <section className="mx-auto max-w-5xl px-6 pb-10">
           <div className="grid gap-5 sm:grid-cols-2">
             <Card className="flex flex-col gap-4 p-7">
               <div className="flex flex-col gap-1">

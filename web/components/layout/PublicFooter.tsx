@@ -7,7 +7,7 @@ export async function PublicFooter({ locale }: { locale: string }) {
 
   return (
     <footer className="border-t border-border bg-surface">
-      <div className="mx-auto flex max-w-5xl flex-col gap-6 px-6 py-12 text-body-sm text-fg-muted sm:flex-row sm:items-start sm:justify-between">
+      <div className="mx-auto flex max-w-6xl flex-col gap-6 px-6 py-12 text-body-sm text-fg-muted sm:flex-row sm:items-start sm:justify-between">
         <div className="flex flex-col gap-2">
           <p className="font-display text-[20px] italic leading-none text-fg">
             OneThing

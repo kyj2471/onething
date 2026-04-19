@@ -72,7 +72,7 @@ export default async function LandingPage({
         </section>
 
         {/* Value props */}
-        <section className="mx-auto max-w-5xl px-6 py-14">
+        <section className="mx-auto max-w-6xl px-6 py-14">
           <div className="grid gap-5 sm:grid-cols-3">
             {(["focus", "okr", "streak"] as const).map((key) => (
               <Card key={key} className="flex flex-col gap-3 p-6">
@@ -91,7 +91,7 @@ export default async function LandingPage({
         </section>
 
         {/* Product mockup */}
-        <section className="mx-auto max-w-5xl px-6 py-14">
+        <section className="mx-auto max-w-6xl px-6 py-14">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <div className="flex flex-col gap-4">
               <h2 className="font-display text-[36px] italic leading-tight text-fg">
