@@ -1,0 +1,340 @@
+{
+  "common": {
+    "goal": "Goal",
+    "target": "Target",
+    "action": "Action"
+  },
+  "notifications": {
+    "daily": {
+      "title": "Time for your one thing",
+      "body": "Check in for today and keep your streak alive."
+    }
+  },
+  "landing": {
+    "meta": {
+      "title": "OneThing — Focus on one goal",
+      "description": "An OKR app for the one goal that matters most. Track daily actions, build streaks, and ship what counts."
+    },
+    "nav": {
+      "pricing": "Pricing",
+      "login": "Log in",
+      "signup": "Sign up"
+    },
+    "hero": {
+      "title": "One goal. Every day.",
+      "tagline": "OneThing keeps you locked on the single thing that matters most — with OKRs, daily actions, and a streak that rewards showing up.",
+      "cta": "Start 14-day free trial",
+      "ctaSecondary": "See pricing",
+      "trust": "No credit card to start · Cancel anytime"
+    },
+    "valueProps": {
+      "focus": {
+        "kicker": "Focus",
+        "title": "Only one goal at a time",
+        "body": "No endless backlog. Choose the one thing you'll move forward today, and the rest gets quiet."
+      },
+      "okr": {
+        "kicker": "OKR",
+        "title": "Measure what matters",
+        "body": "Turn your goal into 2–5 numeric targets. Know at a glance whether you're actually winning."
+      },
+      "streak": {
+        "kicker": "Streak",
+        "title": "Show up, every day",
+        "body": "A daily check-in, a growing heatmap, and a streak that makes showing up the easy choice."
+      }
+    },
+    "mockup": {
+      "title": "Your day, on one screen",
+      "body": "Open OneThing and see exactly what today looks like — your goal, your progress, and the actions that move the needle.",
+      "bullet1": "A single goal with 2–5 measurable targets",
+      "bullet2": "Daily actions you can tick off in one tap",
+      "bullet3": "A 365-day heatmap that tells the story",
+      "labels": {
+        "myGoal": "My Goal",
+        "goalTitle": "Ship OneThing v1",
+        "streak": "12 day streak",
+        "actions": "Today's actions",
+        "action1": "Post on X",
+        "action2": "Send 3 DMs",
+        "action3": "Ship 1 feature",
+        "target1": "Paying users",
+        "target2": "Shipped features",
+        "completed": "Done"
+      }
+    },
+    "pricingPreview": {
+      "title": "Simple pricing",
+      "body": "One flat plan. Monthly or annual — whichever fits you.",
+      "monthly": "Monthly",
+      "annual": "Annual",
+      "perMonth": "per month",
+      "perYear": "per year",
+      "save": "Save 17%",
+      "cta": "See full pricing →"
+    },
+    "finalCta": {
+      "title": "Ready to ship your one thing?",
+      "body": "Start your 14-day free trial. No card needed."
+    },
+    "footer": {
+      "copyright": "All rights reserved.",
+      "pricing": "Pricing",
+      "help": "Help",
+      "privacy": "Privacy",
+      "terms": "Terms",
+      "refund": "Refund"
+    }
+  },
+  "pricing": {
+    "meta": {
+      "title": "Pricing — OneThing",
+      "description": "Simple, flat pricing for OneThing. $4.99/month or $34.99/year. 14-day free trial, no credit card required."
+    },
+    "title": "Simple, honest pricing",
+    "subtitle": "One plan with everything. Choose monthly or annual — cancel any time from Settings.",
+    "trial": "14 days free. No credit card to start.",
+    "monthly": {
+      "label": "Monthly",
+      "price": "$4.99",
+      "per": "per month",
+      "description": "Flexible month-to-month. Cancel whenever."
+    },
+    "annual": {
+      "label": "Annual",
+      "price": "$34.99",
+      "per": "per year",
+      "description": "Two months free. Best value.",
+      "save": "Save 17%"
+    },
+    "features": {
+      "heading": "Everything included",
+      "f1": "One active goal with 2–5 measurable targets",
+      "f2": "Daily actions with one-tap check-in",
+      "f3": "Streak tracking and 365-day heatmap",
+      "f4": "Weekly and yearly progress analytics",
+      "f5": "Emotional nudges tuned to your progress",
+      "f6": "English and Korean, light and dark themes",
+      "f7": "Daily email reminder at your chosen time",
+      "f8": "Export your data any time"
+    },
+    "cta": "Start 14-day free trial",
+    "faqLink": "Questions? See the help & FAQ",
+    "guarantee": "7-day money-back guarantee on all paid plans."
+  },
+  "tabs": {
+    "today": "Today",
+    "goal": "Goal",
+    "progress": "Progress",
+    "settings": "Settings"
+  },
+  "cookies": {
+    "title": "Cookie notice",
+    "message": "We use a single essential cookie to keep you signed in. Analytics is cookieless.",
+    "learnMore": "Learn more",
+    "accept": "Got it"
+  },
+  "today": {
+    "title": "Today",
+    "greeting": "Let's go, {name}",
+    "myGoal": "My Goal",
+    "streak": "{count} day streak",
+    "allDone": "All done! 🌙",
+    "actionsTitle": "Today's actions",
+    "targetsTitle": "Key results",
+    "editCurrentAria": "Update current value",
+    "editCurrentHint": "Tap the number to log today's value",
+    "recentActivity": "Recent activity"
+  },
+  "progress": {
+    "messages": {
+      "0_10": "Every journey begins with one step",
+      "11_25": "You're building momentum",
+      "26_50": "Halfway there!",
+      "51_75": "You can see the finish line",
+      "76_99": "So close. Don't stop now.",
+      "100": "🎉 You did it!"
+    }
+  },
+  "progressPage": {
+    "title": "Progress",
+    "currentStreak": "Current streak",
+    "bestStreak": "Best streak",
+    "completionRate": "Completion rate",
+    "vsLastWeek": "vs last week",
+    "thisWeek": "This week",
+    "yearActivity": "Last 365 days"
+  },
+  "goal": {
+    "label": "My Goal",
+    "targets": "Targets",
+    "actions": "Actions",
+    "addTarget": "+ Add target",
+    "addAction": "+ Add action",
+    "titlePlaceholder": "e.g. Reach 70 kg, Score 900 on TOEIC",
+    "valuePlaceholder": "Target number",
+    "actionPlaceholder": "A small action to do daily",
+    "goalTitlePlaceholder": "What do you want to achieve?",
+    "descriptionPlaceholder": "Why does this matter? (optional)",
+    "add": "Add",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "more": "More",
+    "updateValue": "Update value",
+    "currentValue": "Now",
+    "targetValue": "Goal",
+    "complete": "Complete Goal",
+    "startDate": "Start",
+    "endDate": "End",
+    "period": "Period",
+    "dDay": "D-day",
+    "dDayPlus": "D+{n}",
+    "dDayMinus": "D-{n}",
+    "noPeriod": "No period set",
+    "deleteGoalTitle": "Delete this goal?",
+    "deleteGoalBody": "All targets, actions, and check-in history will be deleted along with it. This cannot be undone.",
+    "deleteGoalCta": "Yes, delete it",
+    "deleteTargetTitle": "Delete this target?",
+    "deleteTargetBody": "Actions and check-in history under this target will also be deleted.",
+    "deleteTargetCta": "Delete",
+    "deleteActionTitle": "Delete this action?",
+    "deleteActionBody": "Its check-in history will also be deleted.",
+    "deleteActionCta": "Delete",
+    "endBeforeStart": "End date must be on or after the start date."
+  },
+  "settings": {
+    "title": "Settings",
+    "account": "Account",
+    "email": "Email",
+    "displayName": "Display name",
+    "notifications": "Notifications",
+    "reminderTime": "Daily reminder",
+    "app": "App",
+    "theme": "Theme",
+    "themeLight": "Light",
+    "themeDark": "Dark",
+    "themeSystem": "System",
+    "language": "Language",
+    "subscription": "Subscription",
+    "plan": "Plan",
+    "trialEnds": "Trial ends",
+    "legal": "Legal",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "refund": "Refund Policy",
+    "help": "Help & FAQ",
+    "save": "Save",
+    "signOut": "Sign out",
+    "manageSubscription": "Manage subscription",
+    "comingSoon": "Coming soon",
+    "dangerZone": "Danger zone",
+    "deleteAccount": "Delete my account",
+    "deleteBody": "This schedules your account and data for deletion within 30 days. You will be signed out immediately.",
+    "deleteConfirmTitle": "Delete your account?",
+    "deleteConfirmBody": "Your goal, targets, actions and activity will be permanently removed within 30 days. This cannot be undone.",
+    "deleteConfirmCta": "Yes, delete my account",
+    "deleteCancel": "Cancel"
+  },
+  "auth": {
+    "or": "or",
+    "google": "Continue with Google",
+    "fields": {
+      "email": "Email",
+      "password": "Password",
+      "displayName": "Display name"
+    },
+    "login": {
+      "title": "Welcome back",
+      "subtitle": "Log in to continue your one goal.",
+      "submit": "Log in",
+      "noAccount": "Don't have an account?",
+      "signupLink": "Sign up"
+    },
+    "signup": {
+      "title": "Create your account",
+      "subtitle": "Start your 14-day free trial.",
+      "submit": "Create account",
+      "passwordHint": "At least 8 characters.",
+      "displayNamePlaceholder": "What should we call you? (e.g. Alex)",
+      "ageCheck": "I confirm I'm 14 years or older.",
+      "termsCheck": "I agree to the <terms>Terms of Service</terms> and <privacy>Privacy Policy</privacy>.",
+      "haveAccount": "Already have an account?",
+      "loginLink": "Log in"
+    }
+  },
+  "onboarding": {
+    "welcome": {
+      "title": "How OneThing is different",
+      "body": "Not a grand plan — one goal, split into three layers you actually run every day.",
+      "pillars": {
+        "goalTitle": "Goal",
+        "goalBody": "The one thing you truly want. Give it a timeframe so it becomes a promise.",
+        "targetTitle": "Targets",
+        "targetBody": "2–5 numbers that prove you're winning. No more hand-waving.",
+        "actionTitle": "Actions",
+        "actionBody": "Tiny daily moves you can check off. One square a day is enough."
+      },
+      "cta": "Get started"
+    },
+    "goal": {
+      "step": "Step 1 of 5",
+      "title": "Pick the one thing that matters",
+      "body": "Write down the single thing you want to focus on right now. Not too big, not too small.",
+      "titleLabel": "Goal",
+      "titlePlaceholder": "Write the goal you truly want to reach",
+      "descriptionLabel": "Why this goal? (optional)",
+      "descriptionPlaceholder": "One line on why this matters to you",
+      "periodLabel": "Period",
+      "startLabel": "Start",
+      "endLabel": "End",
+      "periodHint": "Decide when it starts and ends. Default is today through 90 days from now.",
+      "endBeforeStart": "End date must be on or after the start date.",
+      "cta": "Next"
+    },
+    "targets": {
+      "step": "Step 2 of 5",
+      "title": "Prove success with numbers",
+      "body": "Pick 2–5 numeric checkpoints. Just say the current value and the goal value.",
+      "objectiveContext": "Goal: {title}",
+      "titlePlaceholder": "e.g. Reach 70 kg, Score 900 on TOEIC",
+      "currentLabel": "Current",
+      "currentPlaceholder": "e.g. 80",
+      "targetLabel": "Goal",
+      "targetPlaceholder": "e.g. 70",
+      "previewWithCurrent": "Current {current} → Goal {target}",
+      "previewNoCurrent": "Goal {target}",
+      "progressLabel": "{percent}%",
+      "remove": "Remove",
+      "addRow": "+ Add target",
+      "hint": "If the current number is fuzzy, leave it blank. You can edit any time.",
+      "cta": "Next"
+    },
+    "actions": {
+      "step": "Step 3 of 5",
+      "title": "Decide what you'll do each day",
+      "body": "For each target, stack small daily actions as cards. Small enough to still check off on a bad day.",
+      "sectionContext": "Current {current} / Goal {target}",
+      "placeholder": "e.g. Walk 30 minutes every morning",
+      "addAction": "+ Add action",
+      "remove": "Remove",
+      "hint": "Smaller is better. Size them so you can start within 2 minutes.",
+      "cta": "Next"
+    },
+    "reminder": {
+      "step": "Step 4 of 5",
+      "title": "A quiet nudge, once a day",
+      "body": "Pick one check-in time. We'll send a short email to remind you.",
+      "cta": "Next"
+    },
+    "trial": {
+      "step": "Step 5 of 5",
+      "title": "You're all set",
+      "body": "Full access to OneThing Pro for 14 days. No card required.",
+      "endsOn": "Trial ends on {date}",
+      "cardLater": "You can add a card later from Settings.",
+      "cta": "Get started"
+    }
+  }
+}
