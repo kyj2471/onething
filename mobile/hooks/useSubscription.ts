@@ -1,8 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
+import { Platform } from "react-native";
 import Purchases from "react-native-purchases";
 import { supabase } from "@/lib/supabase";
 import { PRO_ENTITLEMENT } from "@/lib/revenuecat";
 import type { Database } from "@/types/supabase";
+
+const isNative = Platform.OS === "ios" || Platform.OS === "android";
 
 export type SubscriptionTier = "pro" | "trial" | "free";
 
@@ -35,8 +38,9 @@ export function useSubscription(userId: string | undefined) {
     queryFn: async (): Promise<SubscriptionState> => {
       if (!userId) throw new Error("No user");
 
-      // 1. RevenueCat
+      // 1. RevenueCat (native only)
       try {
+        if (!isNative) throw new Error("web: skip RC");
         const info = await Purchases.getCustomerInfo();
         const ent = info.entitlements.active[PRO_ENTITLEMENT];
         if (ent) {

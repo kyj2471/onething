@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { router, useLocalSearchParams } from "expo-router";
 import * as Haptics from "expo-haptics";
+import { useTranslation } from "react-i18next";
 import { Button, Card, Input } from "@/components/ui";
 import { typography } from "@/constants/typography";
 import { useTheme } from "@/hooks/useTheme";
@@ -20,6 +21,7 @@ type ActionsByTarget = Record<string, string[]>;
 
 export default function OnboardingActionsScreen() {
   const { palette } = useTheme();
+  const { t } = useTranslation();
   const { goalId } = useLocalSearchParams<{ goalId: string }>();
   const [targets, setTargets] = useState<Target[] | null>(null);
   const [actionsByTarget, setActionsByTarget] = useState<ActionsByTarget>({});
@@ -70,7 +72,7 @@ export default function OnboardingActionsScreen() {
   };
 
   const canSubmit = (targets ?? []).every(
-    (t) => (actionsByTarget[t.id] ?? []).some((a) => a.trim().length > 0),
+    (target) => (actionsByTarget[target.id] ?? []).some((a) => a.trim().length > 0),
   );
 
   const onSubmit = async () => {
@@ -78,11 +80,11 @@ export default function OnboardingActionsScreen() {
     setSubmitError(null);
     setSubmitting(true);
 
-    const rows = targets.flatMap((t) =>
-      (actionsByTarget[t.id] ?? [])
+    const rows = targets.flatMap((target) =>
+      (actionsByTarget[target.id] ?? [])
         .map((title) => title.trim())
         .filter((title) => title.length > 0)
-        .map((title) => ({ target_id: t.id, title })),
+        .map((title) => ({ target_id: target.id, title })),
     );
 
     const { error } = await supabase.from("actions").insert(rows);
@@ -111,36 +113,38 @@ export default function OnboardingActionsScreen() {
       <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 24, gap: 20 }}>
         <View style={{ gap: 8, marginTop: 4 }}>
           <Text style={[typography.display, { color: palette.fg, fontSize: 32, lineHeight: 40 }]}>
-            Daily actions
+            {t("onboarding.actions.title")}
           </Text>
           <Text style={[typography.body, { color: palette.fgMuted }]}>
-            One or more tiny things you'll do each day for each target.
+            {t("onboarding.actions.body")}
           </Text>
         </View>
 
-        {targets.map((t) => (
-          <Card key={t.id} padded={false} style={{ padding: 16, gap: 12 }}>
-            <Text style={[typography.h3, { color: palette.fg }]}>{t.title}</Text>
-            {(actionsByTarget[t.id] ?? []).map((val, idx) => (
+        {targets.map((target) => (
+          <Card key={target.id} padded={false} style={{ padding: 16, gap: 12 }}>
+            <Text style={[typography.h3, { color: palette.fg }]}>{target.title}</Text>
+            {(actionsByTarget[target.id] ?? []).map((val, idx) => (
               <View key={idx} style={{ flexDirection: "row", alignItems: "flex-end", gap: 8 }}>
                 <View style={{ flex: 1 }}>
                   <Input
                     value={val}
-                    onChangeText={(v) => updateAction(t.id, idx, v)}
-                    placeholder="e.g., Run 3km"
+                    onChangeText={(v) => updateAction(target.id, idx, v)}
+                    placeholder={t("onboarding.actions.placeholder")}
                   />
                 </View>
-                {(actionsByTarget[t.id]?.length ?? 0) > 1 ? (
-                  <Pressable onPress={() => removeAction(t.id, idx)} hitSlop={6} style={{ paddingVertical: 12 }}>
-                    <Text style={[typography.bodySm, { color: palette.fgMuted }]}>Remove</Text>
+                {(actionsByTarget[target.id]?.length ?? 0) > 1 ? (
+                  <Pressable onPress={() => removeAction(target.id, idx)} hitSlop={6} style={{ paddingVertical: 12 }}>
+                    <Text style={[typography.bodySm, { color: palette.fgMuted }]}>
+                      {t("onboarding.actions.remove")}
+                    </Text>
                   </Pressable>
                 ) : null}
               </View>
             ))}
             <Button
-              label="Add action"
+              label={t("onboarding.actions.addAction")}
               variant="secondary"
-              onPress={() => addAction(t.id)}
+              onPress={() => addAction(target.id)}
             />
           </Card>
         ))}
@@ -150,7 +154,7 @@ export default function OnboardingActionsScreen() {
         ) : null}
 
         <Button
-          label={submitting ? "Saving..." : "Next"}
+          label={submitting ? "Saving..." : t("onboarding.actions.cta")}
           onPress={onSubmit}
           loading={submitting}
           disabled={!canSubmit}

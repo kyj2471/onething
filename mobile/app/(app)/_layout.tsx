@@ -2,6 +2,7 @@ import { Redirect, Tabs } from "expo-router";
 import { ActivityIndicator, View } from "react-native";
 import Svg, { Circle, Path, Rect } from "react-native-svg";
 import { useTranslation } from "react-i18next";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { PaywallGate } from "@/components/layout/PaywallGate";
 import { useSession } from "@/hooks/useSession";
 import { useSubscription } from "@/hooks/useSubscription";
@@ -66,6 +67,7 @@ export default function AppLayout() {
   const { palette } = useTheme();
   const { session, loading } = useSession();
   const { t } = useTranslation();
+  const insets = useSafeAreaInsets();
   const { data: subscription, isLoading: subLoading } = useSubscription(
     session?.user.id,
   );
@@ -99,8 +101,8 @@ export default function AppLayout() {
         tabBarActiveTintColor: palette.fg,
         tabBarInactiveTintColor: palette.fgMuted,
         tabBarStyle: {
-          height: 64,
-          paddingBottom: 8,
+          height: 56 + insets.bottom,
+          paddingBottom: Math.max(insets.bottom, 8),
           paddingTop: 8,
           backgroundColor: palette.surface,
           borderTopColor: palette.border,

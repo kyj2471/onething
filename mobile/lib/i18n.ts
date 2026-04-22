@@ -7,10 +7,10 @@ import ko from "@/messages/ko.json";
 export const SUPPORTED_LOCALES = ["en", "ko"] as const;
 export type Locale = (typeof SUPPORTED_LOCALES)[number];
 
-export const DEFAULT_LOCALE: Locale = "en";
+export const DEFAULT_LOCALE: Locale = "ko";
 
 function detectDeviceLocale(): Locale {
-  const code = getLocales()[0]?.languageCode ?? "en";
+  const code = getLocales()[0]?.languageCode ?? DEFAULT_LOCALE;
   return (SUPPORTED_LOCALES as readonly string[]).includes(code)
     ? (code as Locale)
     : DEFAULT_LOCALE;

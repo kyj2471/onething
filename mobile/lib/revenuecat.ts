@@ -9,7 +9,10 @@ export const PRO_ENTITLEMENT = "pro";
 
 let configured = false;
 
+const isNative = Platform.OS === "ios" || Platform.OS === "android";
+
 export function configureRevenueCat(userId: string) {
+  if (!isNative) return;
   if (configured) {
     Purchases.logIn(userId).catch((err) => {
       console.warn("[revenuecat] logIn failed", err);
@@ -34,7 +37,7 @@ export function configureRevenueCat(userId: string) {
 }
 
 export async function checkProStatus(): Promise<boolean> {
-  if (!configured) return false;
+  if (!isNative || !configured) return false;
   try {
     const info = await Purchases.getCustomerInfo();
     return Boolean(info.entitlements.active[PRO_ENTITLEMENT]);
@@ -45,7 +48,7 @@ export async function checkProStatus(): Promise<boolean> {
 }
 
 export async function getOfferings(): Promise<PurchasesOffering | null> {
-  if (!configured) return null;
+  if (!isNative || !configured) return null;
   const offerings = await Purchases.getOfferings();
   return offerings.current ?? null;
 }
@@ -62,7 +65,7 @@ export async function restorePurchases(): Promise<CustomerInfo> {
 }
 
 export async function logOutRevenueCat() {
-  if (!configured) return;
+  if (!isNative || !configured) return;
   try {
     await Purchases.logOut();
   } catch (err) {

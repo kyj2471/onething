@@ -12,6 +12,7 @@ import { useFieldArray, useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import * as Haptics from "expo-haptics";
+import { useTranslation } from "react-i18next";
 import { Button, Card, Input } from "@/components/ui";
 import { typography } from "@/constants/typography";
 import { useTheme } from "@/hooks/useTheme";
@@ -27,7 +28,6 @@ const schema = z.object({
         title: z.string().min(1, "Required").max(120, "Max 120"),
         current_value: z.coerce.number().min(0, "≥ 0"),
         target_value: z.coerce.number().positive("> 0"),
-        unit: z.string().max(24, "Max 24").optional(),
       }),
     )
     .min(MIN_TARGETS)
@@ -38,6 +38,7 @@ type FormValues = z.infer<typeof schema>;
 
 export default function OnboardingTargetsScreen() {
   const { palette } = useTheme();
+  const { t } = useTranslation();
   const { goalId } = useLocalSearchParams<{ goalId: string }>();
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
@@ -50,8 +51,8 @@ export default function OnboardingTargetsScreen() {
     resolver: zodResolver(schema),
     defaultValues: {
       targets: [
-        { title: "", current_value: 0, target_value: 0, unit: "" },
-        { title: "", current_value: 0, target_value: 0, unit: "" },
+        { title: "", current_value: 0, target_value: 0 },
+        { title: "", current_value: 0, target_value: 0 },
       ],
     },
   });
@@ -66,12 +67,11 @@ export default function OnboardingTargetsScreen() {
     setSubmitError(null);
     setSubmitting(true);
 
-    const rows = values.targets.map((t, i) => ({
+    const rows = values.targets.map((row, i) => ({
       goal_id: goalId,
-      title: t.title,
-      current_value: t.current_value,
-      target_value: t.target_value,
-      unit: t.unit || null,
+      title: row.title,
+      current_value: row.current_value,
+      target_value: row.target_value,
       order_index: i,
     }));
 
@@ -93,10 +93,10 @@ export default function OnboardingTargetsScreen() {
       <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 24, gap: 20 }}>
         <View style={{ gap: 8, marginTop: 4 }}>
           <Text style={[typography.display, { color: palette.fg, fontSize: 32, lineHeight: 40 }]}>
-            Measurable targets
+            {t("onboarding.targets.title")}
           </Text>
           <Text style={[typography.body, { color: palette.fgMuted }]}>
-            2–5 numbers that prove you reached the goal.
+            {t("onboarding.targets.body")}
           </Text>
         </View>
 
@@ -109,7 +109,9 @@ export default function OnboardingTargetsScreen() {
                 </Text>
                 {fields.length > MIN_TARGETS ? (
                   <Pressable onPress={() => remove(idx)} hitSlop={6}>
-                    <Text style={[typography.bodySm, { color: palette.fgMuted }]}>Remove</Text>
+                    <Text style={[typography.bodySm, { color: palette.fgMuted }]}>
+                      {t("onboarding.targets.remove")}
+                    </Text>
                   </Pressable>
                 ) : null}
               </View>
@@ -118,11 +120,10 @@ export default function OnboardingTargetsScreen() {
                 name={`targets.${idx}.title`}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <Input
-                    label="Title"
                     value={value}
                     onChangeText={onChange}
                     onBlur={onBlur}
-                    placeholder="e.g., Kilometers run"
+                    placeholder={t("onboarding.targets.titlePlaceholder")}
                     error={errors.targets?.[idx]?.title?.message}
                   />
                 )}
@@ -134,10 +135,11 @@ export default function OnboardingTargetsScreen() {
                     name={`targets.${idx}.current_value`}
                     render={({ field: { onChange, onBlur, value } }) => (
                       <Input
-                        label="Current"
+                        label={t("onboarding.targets.currentLabel")}
                         value={String(value ?? 0)}
                         onChangeText={(v) => onChange(v)}
                         onBlur={onBlur}
+                        placeholder={t("onboarding.targets.currentPlaceholder")}
                         keyboardType="decimal-pad"
                         error={errors.targets?.[idx]?.current_value?.message}
                       />
@@ -150,27 +152,13 @@ export default function OnboardingTargetsScreen() {
                     name={`targets.${idx}.target_value`}
                     render={({ field: { onChange, onBlur, value } }) => (
                       <Input
-                        label="Target"
+                        label={t("onboarding.targets.targetLabel")}
                         value={String(value ?? 0)}
                         onChangeText={(v) => onChange(v)}
                         onBlur={onBlur}
+                        placeholder={t("onboarding.targets.targetPlaceholder")}
                         keyboardType="decimal-pad"
                         error={errors.targets?.[idx]?.target_value?.message}
-                      />
-                    )}
-                  />
-                </View>
-                <View style={{ flex: 1 }}>
-                  <Controller
-                    control={control}
-                    name={`targets.${idx}.unit`}
-                    render={({ field: { onChange, onBlur, value } }) => (
-                      <Input
-                        label="Unit"
-                        value={value ?? ""}
-                        onChangeText={onChange}
-                        onBlur={onBlur}
-                        placeholder="km"
                       />
                     )}
                   />
@@ -181,10 +169,10 @@ export default function OnboardingTargetsScreen() {
 
           {fields.length < MAX_TARGETS ? (
             <Button
-              label="Add target"
+              label={t("onboarding.targets.addRow")}
               variant="secondary"
               onPress={() =>
-                append({ title: "", current_value: 0, target_value: 0, unit: "" })
+                append({ title: "", current_value: 0, target_value: 0 })
               }
             />
           ) : null}
@@ -195,7 +183,7 @@ export default function OnboardingTargetsScreen() {
         ) : null}
 
         <Button
-          label={submitting ? "Saving..." : "Next"}
+          label={submitting ? "Saving..." : t("onboarding.targets.cta")}
           onPress={handleSubmit(onSubmit)}
           loading={submitting}
         />

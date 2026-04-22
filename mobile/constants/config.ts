@@ -4,8 +4,8 @@ export const BUNDLE_ID = "com.nerdstation.onething";
 export const TRIAL_DAYS = 14;
 
 export const PLAN = {
-  monthly: { id: "onething_monthly", priceUSD: 4.99 },
-  annual: { id: "onething_annual", priceUSD: 34.99 },
+  monthly: { id: "onething_monthly", priceUSD: 3.99 },
+  annual: { id: "onething_annual", priceUSD: 24.99 },
 } as const;
 
 export const LEGAL_PATHS = {

@@ -2,6 +2,8 @@ import { Platform } from "react-native";
 import * as Notifications from "expo-notifications";
 import { SchedulableTriggerInputTypes } from "expo-notifications";
 
+const isNative = Platform.OS === "ios" || Platform.OS === "android";
+
 export const DAILY_REMINDER_ID = "daily-reminder";
 const DAILY_REMINDER_CHANNEL = "daily-reminder";
 
@@ -9,7 +11,7 @@ let handlerRegistered = false;
 let androidChannelEnsured = false;
 
 export function registerNotificationHandler() {
-  if (handlerRegistered) return;
+  if (!isNative || handlerRegistered) return;
   handlerRegistered = true;
   Notifications.setNotificationHandler({
     handleNotification: async () => ({
@@ -34,6 +36,7 @@ async function ensureAndroidChannel() {
 }
 
 export async function ensureNotificationPermissions(): Promise<boolean> {
+  if (!isNative) return false;
   const current = await Notifications.getPermissionsAsync();
   if (current.granted) return true;
   if (!current.canAskAgain) return false;
@@ -42,6 +45,7 @@ export async function ensureNotificationPermissions(): Promise<boolean> {
 }
 
 export async function cancelDailyReminder() {
+  if (!isNative) return;
   try {
     await Notifications.cancelScheduledNotificationAsync(DAILY_REMINDER_ID);
   } catch {
@@ -69,6 +73,7 @@ export async function scheduleDailyReminder(
   reminderTime: string | null | undefined,
   copy: ReminderCopy,
 ): Promise<boolean> {
+  if (!isNative) return false;
   await cancelDailyReminder();
   const parsed = parseTime(reminderTime);
   if (!parsed) return false;

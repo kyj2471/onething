@@ -12,6 +12,7 @@ import { router } from "expo-router";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as Haptics from "expo-haptics";
+import { useTranslation } from "react-i18next";
 import { z } from "zod";
 import { Button, Checkbox, Input } from "@/components/ui";
 import { typography } from "@/constants/typography";
@@ -34,6 +35,7 @@ type FormValues = z.infer<typeof schema>;
 
 export default function SignupScreen() {
   const { palette } = useTheme();
+  const { t } = useTranslation();
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [pendingVerification, setPendingVerification] = useState(false);
   const [submitting, setSubmitting] = useState(false);
@@ -87,13 +89,16 @@ export default function SignupScreen() {
       >
         <View style={{ flex: 1, padding: 24, gap: 20, justifyContent: "center" }}>
           <Text style={[typography.display, { color: palette.fg, fontSize: 36 }]}>
-            Check your email
+            {t("auth.signup.checkEmailTitle", "Check your email")}
           </Text>
           <Text style={[typography.body, { color: palette.fgMuted }]}>
-            We sent a confirmation link. Tap it to finish creating your account.
+            {t(
+              "auth.signup.checkEmailBody",
+              "We sent a confirmation link. Tap it to finish creating your account.",
+            )}
           </Text>
           <Button
-            label="Back to log in"
+            label={t("auth.signup.backToLogin", "Back to log in")}
             variant="secondary"
             onPress={() => router.replace("/(auth)/login")}
           />
@@ -110,15 +115,17 @@ export default function SignupScreen() {
       >
         <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 24, gap: 20 }}>
           <Pressable onPress={() => router.back()} hitSlop={12}>
-            <Text style={[typography.body, { color: palette.fgMuted }]}>← Back</Text>
+            <Text style={[typography.body, { color: palette.fgMuted }]}>
+              ← {t("common.back", "Back")}
+            </Text>
           </Pressable>
 
           <View style={{ gap: 8, marginTop: 12 }}>
             <Text style={[typography.display, { color: palette.fg, fontSize: 36, lineHeight: 44 }]}>
-              Create your account
+              {t("auth.signup.title")}
             </Text>
             <Text style={[typography.body, { color: palette.fgMuted }]}>
-              Start a 14-day free trial. Cancel anytime.
+              {t("auth.signup.subtitle")}
             </Text>
           </View>
 
@@ -128,11 +135,12 @@ export default function SignupScreen() {
               name="displayName"
               render={({ field: { onChange, onBlur, value } }) => (
                 <Input
-                  label="Display name"
+                  label={t("auth.fields.displayName")}
                   value={value}
                   onChangeText={onChange}
                   onBlur={onBlur}
                   autoCapitalize="words"
+                  placeholder={t("auth.signup.displayNamePlaceholder")}
                   error={errors.displayName?.message}
                 />
               )}
@@ -142,7 +150,7 @@ export default function SignupScreen() {
               name="email"
               render={({ field: { onChange, onBlur, value } }) => (
                 <Input
-                  label="Email"
+                  label={t("auth.fields.email")}
                   value={value}
                   onChangeText={onChange}
                   onBlur={onBlur}
@@ -158,13 +166,13 @@ export default function SignupScreen() {
               name="password"
               render={({ field: { onChange, onBlur, value } }) => (
                 <Input
-                  label="Password"
+                  label={t("auth.fields.password")}
                   value={value}
                   onChangeText={onChange}
                   onBlur={onBlur}
                   secureTextEntry
                   autoComplete="password-new"
-                  hint="At least 8 characters"
+                  hint={t("auth.signup.passwordHint")}
                   error={errors.password?.message}
                 />
               )}
@@ -177,7 +185,7 @@ export default function SignupScreen() {
                 <Checkbox
                   value={Boolean(value)}
                   onChange={onChange}
-                  label="I am 13 years or older."
+                  label={t("auth.signup.ageCheck")}
                   error={errors.ageConfirmed?.message}
                 />
               )}
@@ -189,7 +197,10 @@ export default function SignupScreen() {
                 <Checkbox
                   value={Boolean(value)}
                   onChange={onChange}
-                  label="I accept the Terms of Service and Privacy Policy."
+                  label={t(
+                    "auth.signup.termsCheckPlain",
+                    "I accept the Terms of Service and Privacy Policy.",
+                  )}
                   error={errors.termsAccepted?.message}
                 />
               )}
@@ -202,7 +213,7 @@ export default function SignupScreen() {
             ) : null}
 
             <Button
-              label={submitting ? "Creating account..." : "Create account"}
+              label={submitting ? "..." : t("auth.signup.submit")}
               onPress={handleSubmit(onSubmit)}
               loading={submitting}
             />
@@ -213,8 +224,10 @@ export default function SignupScreen() {
               hitSlop={8}
             >
               <Text style={[typography.bodySm, { color: palette.fgMuted }]}>
-                Already have an account?{" "}
-                <Text style={{ color: palette.fg, fontWeight: "500" }}>Log in</Text>
+                {t("auth.signup.haveAccount")}{" "}
+                <Text style={{ color: palette.fg, fontWeight: "500" }}>
+                  {t("auth.signup.loginLink")}
+                </Text>
               </Text>
             </Pressable>
           </View>

@@ -70,7 +70,7 @@
       "annual": "Annual",
       "perMonth": "per month",
       "perYear": "per year",
-      "save": "Save 17%",
+      "save": "Save 48%",
       "cta": "See full pricing →"
     },
     "finalCta": {
@@ -89,23 +89,23 @@
   "pricing": {
     "meta": {
       "title": "Pricing — OneThing",
-      "description": "Simple, flat pricing for OneThing. $4.99/month or $34.99/year. 14-day free trial, no credit card required."
+      "description": "Simple, flat pricing for OneThing. $3.99/month or $24.99/year. 14-day free trial, no credit card required."
     },
     "title": "Simple, honest pricing",
     "subtitle": "One plan with everything. Choose monthly or annual — cancel any time from Settings.",
     "trial": "14 days free. No credit card to start.",
     "monthly": {
       "label": "Monthly",
-      "price": "$4.99",
+      "price": "$3.99",
       "per": "per month",
       "description": "Flexible month-to-month. Cancel whenever."
     },
     "annual": {
       "label": "Annual",
-      "price": "$34.99",
+      "price": "$24.99",
       "per": "per year",
-      "description": "Two months free. Best value.",
-      "save": "Save 17%"
+      "description": "Best value.",
+      "save": "Save 48%"
     },
     "features": {
       "heading": "Everything included",

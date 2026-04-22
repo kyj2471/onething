@@ -5,6 +5,7 @@ import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import * as Haptics from "expo-haptics";
+import { useTranslation } from "react-i18next";
 import { Button, Input } from "@/components/ui";
 import { typography } from "@/constants/typography";
 import { useTheme } from "@/hooks/useTheme";
@@ -28,6 +29,7 @@ type FormValues = z.infer<typeof schema>;
 
 export default function OnboardingGoalScreen() {
   const { palette } = useTheme();
+  const { t } = useTranslation();
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [submitting, setSubmitting] = useState(false);
 
@@ -86,10 +88,10 @@ export default function OnboardingGoalScreen() {
       <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 24, gap: 20 }}>
         <View style={{ gap: 8, marginTop: 4 }}>
           <Text style={[typography.display, { color: palette.fg, fontSize: 32, lineHeight: 40 }]}>
-            Your goal
+            {t("onboarding.goal.title")}
           </Text>
           <Text style={[typography.body, { color: palette.fgMuted }]}>
-            One outcome you want to hit by a specific date.
+            {t("onboarding.goal.body")}
           </Text>
         </View>
 
@@ -99,11 +101,11 @@ export default function OnboardingGoalScreen() {
             name="title"
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
-                label="Title"
+                label={t("onboarding.goal.titleLabel")}
                 value={value}
                 onChangeText={onChange}
                 onBlur={onBlur}
-                placeholder="e.g., Run a half marathon"
+                placeholder={t("onboarding.goal.titlePlaceholder")}
                 error={errors.title?.message}
               />
             )}
@@ -113,12 +115,12 @@ export default function OnboardingGoalScreen() {
             name="description"
             render={({ field: { onChange, onBlur, value } }) => (
               <Input
-                label="Description (optional)"
+                label={t("onboarding.goal.descriptionLabel")}
                 value={value ?? ""}
                 onChangeText={onChange}
                 onBlur={onBlur}
                 multiline
-                placeholder="Why does this matter?"
+                placeholder={t("onboarding.goal.descriptionPlaceholder")}
                 error={errors.description?.message}
               />
             )}
@@ -130,7 +132,7 @@ export default function OnboardingGoalScreen() {
                 name="start_date"
                 render={({ field: { onChange, onBlur, value } }) => (
                   <Input
-                    label="Start"
+                    label={t("onboarding.goal.startLabel")}
                     value={value}
                     onChangeText={onChange}
                     onBlur={onBlur}
@@ -147,7 +149,7 @@ export default function OnboardingGoalScreen() {
                 name="end_date"
                 render={({ field: { onChange, onBlur, value } }) => (
                   <Input
-                    label="End"
+                    label={t("onboarding.goal.endLabel")}
                     value={value}
                     onChangeText={onChange}
                     onBlur={onBlur}
@@ -165,7 +167,7 @@ export default function OnboardingGoalScreen() {
           ) : null}
 
           <Button
-            label={submitting ? "Saving..." : "Next"}
+            label={submitting ? "Saving..." : t("onboarding.goal.cta")}
             onPress={handleSubmit(onSubmit)}
             loading={submitting}
           />
